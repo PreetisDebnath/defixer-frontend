@@ -2,26 +2,48 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>Defixer Dashboard</title>
 
-    <link rel="icon" type="image/x-icon" href="../assets/icons/web.png"/>
+  <link
+    rel="icon"
+    type="image/png"
+    href="../assets/icons/favicon.png"
+  />
 
-  <link rel="stylesheet" href="../css/dashboard.css">
+  <link
+    rel="stylesheet"
+    href="../css/dashboard.css"
+  />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
+    rel="stylesheet"
+  >
 
   <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 
-<body>
+<body class="dashboard-page">
 
   <div class="dashboard-container">
 
@@ -33,9 +55,14 @@
 
         <div class="logo">
 
-          <img src="../assets/login-illustration.png" alt="logo">
+          <img
+            src="../assets/login-illustration.png"
+            alt="logo"
+          >
 
-          <h2>DE<span>FIXER</span></h2>
+          <h2>
+            DE<span>FIXER</span>
+          </h2>
 
         </div>
 
@@ -44,37 +71,58 @@
           <div class="active-indicator"></div>
 
           <a href="#" class="nav-item active">
+
             <i data-lucide="layout-dashboard"></i>
+
             <span>Overview</span>
+
           </a>
 
           <a href="#" class="nav-item">
+
             <i data-lucide="code-2"></i>
+
             <span>Practice</span>
+
           </a>
 
           <a href="#" class="nav-item">
+
             <i data-lucide="bar-chart-3"></i>
+
             <span>Progress</span>
+
           </a>
 
           <a href="#" class="nav-item">
+
             <i data-lucide="trophy"></i>
+
             <span>Achievements</span>
+
           </a>
 
           <a href="#" class="nav-item">
+
             <i data-lucide="settings"></i>
+
             <span>Settings</span>
+
           </a>
 
         </nav>
 
       </div>
 
-      <div class="logout-btn" id="logoutBtn">
+      <div
+        class="logout-btn"
+        id="logoutBtn"
+      >
+
         <i data-lucide="log-out"></i>
+
         <span>Logout</span>
+
       </div>
 
     </aside>
@@ -83,13 +131,15 @@
 
     <main class="main-content">
 
-      <!-- TOP -->
+      <!-- TOP CARD -->
 
       <section class="top-card">
 
         <div class="top-left">
 
-          <p class="welcome">Welcome back,</p>
+          <p class="welcome">
+            Welcome back,
+          </p>
 
           <h1 id="username">
             Developer 👋
@@ -100,12 +150,24 @@
           <div class="xp-wrapper">
 
             <div class="xp-info">
-              <span id="levelText">Level 6</span>
-              <span id="xpText">1200 / 2000 XP</span>
+
+              <span id="levelText">
+                Level 1
+              </span>
+
+              <span id="xpText">
+                0 / 500 XP
+              </span>
+
             </div>
 
             <div class="xp-bar">
-              <div class="xp-fill" id="xpFill"></div>
+
+              <div
+                class="xp-fill"
+                id="xpFill"
+              ></div>
+
             </div>
 
           </div>
@@ -116,7 +178,10 @@
 
         <div class="profile-wrapper">
 
-          <div class="profile-image" id="profileToggle">
+          <div
+            class="profile-image"
+            id="profileToggle"
+          >
 
             <img
               id="profileAvatar"
@@ -125,14 +190,19 @@
             >
 
             <button class="edit-btn">
+
               <i data-lucide="pencil"></i>
+
             </button>
 
           </div>
 
           <!-- DROPDOWN -->
 
-          <div class="profile-dropdown" id="profileDropdown">
+          <div
+            class="profile-dropdown"
+            id="profileDropdown"
+          >
 
             <div class="dropdown-user">
 
@@ -145,11 +215,11 @@
               <div>
 
                 <h4 id="dropdownName">
-                  Alex Developer
+                  Developer
                 </h4>
 
                 <p id="dropdownEmail">
-                  alex@gmail.com
+                  user@email.com
                 </p>
 
               </div>
@@ -159,18 +229,30 @@
             <div class="dropdown-divider"></div>
 
             <button class="dropdown-item">
+
               <i data-lucide="user"></i>
+
               Profile
+
             </button>
 
             <button class="dropdown-item">
+
               <i data-lucide="settings"></i>
+
               Settings
+
             </button>
 
-            <button class="dropdown-item logout-red" id="dropdownLogout">
+            <button
+              class="dropdown-item logout-red"
+              id="dropdownLogout"
+            >
+
               <i data-lucide="log-out"></i>
+
               Logout
+
             </button>
 
           </div>
@@ -183,51 +265,85 @@
 
       <section class="stats-section">
 
+        <!-- SOLVED -->
+
         <div class="stat-card">
 
           <div class="stat-icon green">
+
             <i data-lucide="check-square"></i>
+
           </div>
 
-          <h2 class="counter" data-target="127">0</h2>
+          <h2 id="questionsSolved">
+            0
+          </h2>
 
-          <p>Questions Solved</p>
+          <p>
+            Questions Solved
+          </p>
 
         </div>
+
+        <!-- ACCURACY -->
 
         <div class="stat-card">
 
           <div class="stat-icon cyan">
+
             <i data-lucide="target"></i>
+
           </div>
 
-          <h2 class="counter" data-target="65">0</h2>
+          <h2 id="accuracyPercent">
+            0%
+          </h2>
 
-          <p>Accuracy %</p>
+          <p>
+            Accuracy
+          </p>
 
         </div>
+
+        <!-- STREAK -->
 
         <div class="stat-card streak-card">
 
-          <div class="stat-icon orange flame-container">
+          <div
+            class="stat-icon orange flame-container"
+          >
+
             <i data-lucide="flame"></i>
+
           </div>
 
-          <h2 class="counter" data-target="7">0</h2>
+          <h2 id="dayStreak">
+            0
+          </h2>
 
-          <p>Day Streak</p>
+          <p>
+            Day Streak
+          </p>
 
         </div>
+
+        <!-- ACHIEVEMENTS -->
 
         <div class="stat-card">
 
           <div class="stat-icon cyan">
+
             <i data-lucide="trophy"></i>
+
           </div>
 
-          <h2 class="counter" data-target="12">0</h2>
+          <h2 id="achievementCount">
+            0
+          </h2>
 
-          <p>Achievements</p>
+          <p>
+            Achievements
+          </p>
 
         </div>
 
@@ -237,47 +353,26 @@
 
       <section class="bottom-section">
 
-        <!-- ACTIVITY -->
+        <!-- RECENT ACTIVITY -->
 
         <div class="dashboard-card">
 
           <div class="card-header">
 
-            <h3>Recent Activity</h3>
+            <h3>
+              Recent Activity
+            </h3>
 
-            <a href="#">View all</a>
+            <a href="#">
+              View all
+            </a>
 
           </div>
 
-          <div class="activity-list">
-
-            <div class="activity-item">
-              <div>
-                <h4>Solved: Array Sum Bug</h4>
-                <p>2 mins ago</p>
-              </div>
-            </div>
-
-            <div class="activity-item">
-              <div>
-                <h4>Solved: Loop Condition</h4>
-                <p>12 mins ago</p>
-              </div>
-            </div>
-
-            <div class="activity-item">
-              <div>
-                <h4>Solved: Pointer Error</h4>
-                <p>35 mins ago</p>
-              </div>
-            </div>
-
-            <div class="activity-item">
-              <div>
-                <h4>Attempted: String Compare</h4>
-                <p>1 hr ago</p>
-              </div>
-            </div>
+          <div
+            class="activity-list"
+            id="activityList"
+          >
 
           </div>
 
@@ -289,28 +384,20 @@
 
           <div class="card-header">
 
-            <h3>Achievements</h3>
+            <h3>
+              Achievements
+            </h3>
 
-            <a href="#">View all</a>
+            <a href="#">
+              View all
+            </a>
 
           </div>
 
-          <div class="achievement-list">
-
-            <div class="achievement-item">
-              <h4>🏆 First Bug Fixed</h4>
-              <p>Solve your first question</p>
-            </div>
-
-            <div class="achievement-item">
-              <h4>🔥 5 Correct Answers</h4>
-              <p>Solve 5 questions correctly</p>
-            </div>
-
-            <div class="achievement-item">
-              <h4>💻 C Language Beginner</h4>
-              <p>Solve 10 C questions</p>
-            </div>
+          <div
+            class="achievement-list"
+            id="achievementList"
+          >
 
           </div>
 
@@ -322,7 +409,10 @@
 
   </div>
 
-  <script type="module" src="../js/dashboard.js"></script>
+  <script
+    type="module"
+    src="../js/dashboard.js"
+  ></script>
 
 </body>
 

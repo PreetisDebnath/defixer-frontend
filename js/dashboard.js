@@ -1,13 +1,27 @@
-import {
-    auth
-}
-from "./firebase.js";
+/* FIREBASE */
 
 import {
+
+    auth,
+
+    signOut,
+
     onAuthStateChanged,
-    signOut
+
+    createUserDocument,
+
+    subscribeToUserData,
+
+    getRecentActivities,
+
+    getAchievements,
+
+    XP_PER_LEVEL,
+
+    calculateLevelXP
+
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+from "./firebase.js";
 
 /* LUCIDE */
 
@@ -42,58 +56,144 @@ const logoutBtn =
 const dropdownLogout =
     document.getElementById("dropdownLogout");
 
-const xpFill =
-    document.getElementById("xpFill");
+/* STATS */
 
-const counters =
-    document.querySelectorAll(".counter");
+const questionsSolved =
+    document.getElementById(
+        "questionsSolved"
+    );
+
+const accuracyPercent =
+    document.getElementById(
+        "accuracyPercent"
+    );
+
+const dayStreak =
+    document.getElementById(
+        "dayStreak"
+    );
+
+const achievementCount =
+    document.getElementById(
+        "achievementCount"
+    );
+
+/* XP */
+
+const levelText =
+    document.getElementById(
+        "levelText"
+    );
+
+const xpText =
+    document.getElementById(
+        "xpText"
+    );
+
+const xpFill =
+    document.getElementById(
+        "xpFill"
+    );
+
+/* LISTS */
+
+const activityList =
+    document.getElementById(
+        "activityList"
+    );
+
+const achievementList =
+    document.getElementById(
+        "achievementList"
+    );
+
+/* SIDEBAR */
 
 const activeIndicator =
-    document.querySelector(".active-indicator");
+    document.querySelector(
+        ".active-indicator"
+    );
 
 const navItems =
-    document.querySelectorAll(".nav-item");
+    document.querySelectorAll(
+        ".nav-item"
+    );
 
-/* DEFAULT USER */
+/* DEFAULT AVATAR */
 
 const defaultAvatar =
     "../assets/icons/avatar.jpg";
 
 /* AUTH PROTECTION */
 
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(
+    auth,
+    async (user)=>{
 
-    if(user){
+        if(user){
 
-        loadUserData(user);
+            await createUserDocument(
+                user
+            );
 
-    }else{
+            initializeDashboard(
+                user
+            );
 
-        window.location.href =
-            "../index.html";
+        }
+
+        else{
+
+            window.location.href =
+                "../index.html";
+        }
     }
-});
+);
 
-/* LOAD USER DATA */
+/* INITIALIZE DASHBOARD */
 
-function loadUserData(user){
+async function initializeDashboard(
+    user
+){
+
+    loadProfile(user);
+
+    subscribeToRealtimeData(
+        user.uid
+    );
+
+    loadRecentActivity(
+        user.uid
+    );
+
+    loadAchievements(
+        user.uid
+    );
+}
+
+/* LOAD PROFILE */
+
+function loadProfile(user){
 
     const displayName =
-        user.displayName || "Developer";
+        user.displayName ||
+        "Developer";
 
     const email =
-        user.email || "No Email";
+        user.email ||
+        "No Email";
 
     const avatar =
-        user.photoURL || defaultAvatar;
+        user.photoURL ||
+        defaultAvatar;
 
-    username.innerHTML =
+    username.textContent =
         `${displayName} 👋`;
 
-    dropdownName.innerHTML =
+    dropdownName.textContent =
         displayName;
 
-    dropdownEmail.innerHTML =
+    dropdownEmail.textContent =
         email;
 
     profileAvatar.src =
@@ -103,26 +203,202 @@ function loadUserData(user){
         avatar;
 }
 
+/* REALTIME USER DATA */
+
+function subscribeToRealtimeData(
+    uid
+){
+
+    subscribeToUserData(
+        uid,
+        (data)=>{
+
+            renderStats(data);
+
+            renderXP(data);
+        }
+    );
+}
+
+/* RENDER STATS */
+
+function renderStats(data){
+
+    questionsSolved.textContent =
+        data.solvedQuestions || 0;
+
+    accuracyPercent.textContent =
+        `${data.accuracy || 0}%`;
+
+    dayStreak.textContent =
+        data.streak || 0;
+
+    achievementCount.textContent =
+        data.achievementCount || 0;
+}
+
+/* RENDER XP */
+
+function renderXP(data){
+
+    const currentXP =
+        calculateLevelXP(
+            data.xp || 0
+        );
+
+    const progress =
+        (
+            currentXP /
+            XP_PER_LEVEL
+        ) * 100;
+
+    levelText.textContent =
+        `Level ${data.level || 1}`;
+
+    xpText.textContent =
+        `${currentXP} / ${XP_PER_LEVEL} XP`;
+
+    xpFill.style.width =
+        `${progress}%`;
+}
+
+/* LOAD RECENT ACTIVITY */
+
+async function loadRecentActivity(
+    uid
+){
+
+    const activities =
+        await getRecentActivities(
+            uid
+        );
+
+    activityList.innerHTML = "";
+
+    if(activities.length === 0){
+
+        activityList.innerHTML =
+        `
+        <div class="activity-item">
+            <div>
+                <h4>No activity yet</h4>
+                <p>Start solving questions</p>
+            </div>
+        </div>
+        `;
+
+        return;
+    }
+
+    activities.forEach((item)=>{
+
+        activityList.innerHTML +=
+        `
+        <div class="activity-item">
+
+            <div>
+
+                <h4>
+                    ${item.activity}
+                </h4>
+
+                <p>
+                    Recent
+                </p>
+
+            </div>
+
+        </div>
+        `;
+    });
+}
+
+/* LOAD ACHIEVEMENTS */
+
+async function loadAchievements(
+    uid
+){
+
+    const achievements =
+        await getAchievements(
+            uid
+        );
+
+    achievementList.innerHTML = "";
+
+    if(achievements.length === 0){
+
+        achievementList.innerHTML =
+        `
+        <div class="achievement-item">
+
+            <h4>
+                No achievements yet
+            </h4>
+
+            <p>
+                Start solving questions
+            </p>
+
+        </div>
+        `;
+
+        return;
+    }
+
+    achievements.forEach((item)=>{
+
+        achievementList.innerHTML +=
+        `
+        <div class="achievement-item">
+
+            <h4>
+                🏆 ${item.title}
+            </h4>
+
+            <p>
+                ${item.description}
+            </p>
+
+        </div>
+        `;
+    });
+}
+
 /* PROFILE DROPDOWN */
 
-profileToggle.addEventListener("click", ()=>{
+profileToggle.addEventListener(
+    "click",
+    ()=>{
 
-    profileDropdown.classList.toggle("active");
-});
+        profileDropdown.classList.toggle(
+            "active"
+        );
+    }
+);
 
 /* CLOSE DROPDOWN */
 
-window.addEventListener("click", (e)=>{
+window.addEventListener(
+    "click",
+    (e)=>{
 
-    if(
-        !profileToggle.contains(e.target)
-        &&
-        !profileDropdown.contains(e.target)
-    ){
+        if(
+            !profileToggle.contains(
+                e.target
+            )
+            &&
+            !profileDropdown.contains(
+                e.target
+            )
+        ){
 
-        profileDropdown.classList.remove("active");
+            profileDropdown.classList.remove(
+                "active"
+            );
+        }
     }
-});
+);
 
 /* LOGOUT */
 
@@ -135,7 +411,9 @@ async function logoutUser(){
         window.location.href =
             "../index.html";
 
-    }catch(error){
+    }
+
+    catch(error){
 
         console.log(error);
     }
@@ -151,71 +429,33 @@ dropdownLogout.addEventListener(
     logoutUser
 );
 
-/* COUNTER ANIMATION */
+/* SIDEBAR INDICATOR */
 
-function animateCounter(counter){
+navItems.forEach(
+    (item, index)=>{
 
-    const target =
-        +counter.dataset.target;
+        item.addEventListener(
+            "click",
+            ()=>{
 
-    let current = 0;
+                navItems.forEach(
+                    (nav)=>{
 
-    const increment =
-        target / 80;
+                        nav.classList.remove(
+                            "active"
+                        );
+                    }
+                );
 
-    const updateCounter = ()=>{
+                item.classList.add(
+                    "active"
+                );
 
-        current += increment;
-
-        if(current < target){
-
-            counter.innerText =
-                Math.floor(current);
-
-            requestAnimationFrame(
-                updateCounter
-            );
-
-        }else{
-
-            counter.innerText =
-                target;
-        }
-    };
-
-    updateCounter();
-}
-
-counters.forEach((counter)=>{
-
-    animateCounter(counter);
-});
-
-/* XP ANIMATION */
-
-setTimeout(()=>{
-
-    xpFill.style.width =
-        "60%";
-
-}, 400);
-
-/* SIDEBAR ACTIVE INDICATOR */
-
-navItems.forEach((item, index)=>{
-
-    item.addEventListener("click", ()=>{
-
-        navItems.forEach((nav)=>{
-
-            nav.classList.remove("active");
-        });
-
-        item.classList.add("active");
-
-        moveIndicator(index);
-    });
-});
+                moveIndicator(index);
+            }
+        );
+    }
+);
 
 function moveIndicator(index){
 
@@ -226,11 +466,9 @@ function moveIndicator(index){
         `${topPosition}px`;
 }
 
-/* INITIAL POSITION */
-
 moveIndicator(0);
 
-/* CARD FLOAT EFFECT */
+/* CARD HOVER EFFECT */
 
 const cards =
     document.querySelectorAll(
@@ -239,44 +477,52 @@ const cards =
 
 cards.forEach((card)=>{
 
-    card.addEventListener("mousemove", (e)=>{
+    card.addEventListener(
+        "mousemove",
+        (e)=>{
 
-        const rect =
-            card.getBoundingClientRect();
+            const rect =
+                card.getBoundingClientRect();
 
-        const x =
-            e.clientX - rect.left;
+            const x =
+                e.clientX - rect.left;
 
-        const y =
-            e.clientY - rect.top;
+            const y =
+                e.clientY - rect.top;
 
-        card.style.background =
-        `
-        radial-gradient(
-            circle at ${x}px ${y}px,
-            rgba(34,211,238,0.08),
-            rgba(255,255,255,0.02)
-        )
-        `;
-    });
+            card.style.background =
+            `
+            radial-gradient(
+                circle at ${x}px ${y}px,
+                rgba(34,211,238,0.08),
+                rgba(255,255,255,0.02)
+            )
+            `;
+        }
+    );
 
-    card.addEventListener("mouseleave", ()=>{
+    card.addEventListener(
+        "mouseleave",
+        ()=>{
 
-        card.style.background =
-        `
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,0.05),
-            rgba(255,255,255,0.015)
-        )
-        `;
-    });
+            card.style.background =
+            `
+            linear-gradient(
+                145deg,
+                rgba(255,255,255,0.05),
+                rgba(255,255,255,0.015)
+            )
+            `;
+        }
+    );
 });
 
 /* STREAK GLOW */
 
 const streakCard =
-    document.querySelector(".streak-card");
+    document.querySelector(
+        ".streak-card"
+    );
 
 setInterval(()=>{
 
