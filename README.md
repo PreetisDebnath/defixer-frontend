@@ -24,10 +24,10 @@ https://defixer-frontend.vercel.app
 ## Screenshots
 
 ### Login Page
-![Login Page](assets/screenshots/login.png)
+![Login Page](./assests/screenshots/login.png)
 
 ### Signup Page
-![Signup Page](assets/screenshots/signup.png)
+![Signup Page](./assests/assets/screenshots/signup.png)
 
 ## Future Plans
 - Firebase Authentication
