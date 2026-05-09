@@ -3,9 +3,11 @@
 A futuristic debugging practice platform built for students and programmers to improve debugging and problem-solving skills through interactive coding challenges.
 
 ## Live Demo
+
 https://defixer-frontend.vercel.app
 
 ## Features
+
 - Login and Signup UI
 - Futuristic dark theme
 - Responsive design
@@ -15,6 +17,7 @@ https://defixer-frontend.vercel.app
 - Score and result system
 
 ## Tech Stack
+
 - HTML
 - CSS
 - JavaScript
@@ -24,12 +27,15 @@ https://defixer-frontend.vercel.app
 ## Screenshots
 
 ### Login Page
+
 ![Login Page](./assests/screenshots/login.png)
 
 ### Signup Page
-![Signup Page](./assests/assets/screenshots/signup.png)
+
+![Signup Page](./assests/screenshots/signup.png)
 
 ## Future Plans
+
 - Firebase Authentication
 - Real-time leaderboard
 - Multiplayer debugging battles
@@ -39,4 +45,5 @@ https://defixer-frontend.vercel.app
 - AI-generated debugging questions
 
 ## Author
+
 Preetis Debnath
