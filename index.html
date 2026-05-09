@@ -12,6 +12,8 @@
 
     <title>Defixer</title>
 
+    <link rel="icon" type="image/x-icon" href="./assets/icons/web.png"/>
+
     <link
         rel="stylesheet"
         href="css/style.css"
@@ -40,7 +42,7 @@
 
 </head>
 
-<body>
+<body class="no-scroll">
 
     <div class="background-glow"></div>
 
@@ -51,7 +53,7 @@
         <div class="brand">
 
             <img
-                src="./assests/login-illustration.png"
+                src="./assets/login-illustration.png"
                 alt="Defixer Logo"
                 class="logo-image"
             />
@@ -81,11 +83,15 @@
                 <button
                     id="login-tab"
                     class="active-tab"
+                    type="button"
                 >
                     Login
                 </button>
 
-                <button id="signup-tab">
+                <button
+                    id="signup-tab"
+                    type="button"
+                >
                     Sign Up
                 </button>
 
@@ -93,10 +99,16 @@
 
             <!-- LOGIN FORM -->
 
-            <form id="login-form">
+            <form
+                id="login-form"
+                autocomplete="on"
+                method="post"
+            >
 
                 <input
                     type="email"
+                    name="username"
+                    autocomplete="username"
                     placeholder="Email Address"
                     class="input-field"
                 />
@@ -105,6 +117,8 @@
 
                     <input
                         type="password"
+                        name="password"
+                        autocomplete="current-password"
                         placeholder="Password"
                         class="input-field"
                         id="login-password"
@@ -123,7 +137,10 @@
 
                     <label class="remember-label">
 
-                        <input type="checkbox" />
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        />
 
                         Remember Me
 
@@ -172,16 +189,22 @@
             <form
                 id="signup-form"
                 class="hidden"
+                autocomplete="on"
+                method="post"
             >
 
                 <input
                     type="text"
+                    name="username"
+                    autocomplete="username"
                     placeholder="Username"
                     class="input-field"
                 />
 
                 <input
                     type="email"
+                    name="email"
+                    autocomplete="email"
                     placeholder="Email Address"
                     class="input-field"
                 />
@@ -190,6 +213,8 @@
 
                     <input
                         type="password"
+                        name="new-password"
+                        autocomplete="new-password"
                         placeholder="Password"
                         class="input-field"
                         id="signup-password"
@@ -208,6 +233,8 @@
 
                     <input
                         type="password"
+                        name="confirm-password"
+                        autocomplete="new-password"
                         placeholder="Confirm Password"
                         class="input-field"
                         id="confirm-password"

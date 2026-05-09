@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Defixer Dashboard</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/icons/web.png"/>
+
+  <link rel="stylesheet" href="../css/dashboard.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div>
+
+        <div class="logo">
+
+          <img src="../assets/login-illustration.png" alt="logo">
+
+          <h2>DE<span>FIXER</span></h2>
+
+        </div>
+
+        <nav class="nav-menu">
+
+          <div class="active-indicator"></div>
+
+          <a href="#" class="nav-item active">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <i data-lucide="code-2"></i>
+            <span>Practice</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Progress</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <i data-lucide="trophy"></i>
+            <span>Achievements</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </a>
+
+        </nav>
+
+      </div>
+
+      <div class="logout-btn" id="logoutBtn">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+      <!-- TOP -->
+
+      <section class="top-card">
+
+        <div class="top-left">
+
+          <p class="welcome">Welcome back,</p>
+
+          <h1 id="username">
+            Developer 👋
+          </h1>
+
+          <!-- XP -->
+
+          <div class="xp-wrapper">
+
+            <div class="xp-info">
+              <span id="levelText">Level 6</span>
+              <span id="xpText">1200 / 2000 XP</span>
+            </div>
+
+            <div class="xp-bar">
+              <div class="xp-fill" id="xpFill"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- PROFILE -->
+
+        <div class="profile-wrapper">
+
+          <div class="profile-image" id="profileToggle">
+
+            <img
+              id="profileAvatar"
+              src="../assets/icons/avatar.jpg"
+              alt="profile"
+            >
+
+            <button class="edit-btn">
+              <i data-lucide="pencil"></i>
+            </button>
+
+          </div>
+
+          <!-- DROPDOWN -->
+
+          <div class="profile-dropdown" id="profileDropdown">
+
+            <div class="dropdown-user">
+
+              <img
+                id="dropdownAvatar"
+                src="../assets/icons/avatar.jpg"
+                alt="avatar"
+              >
+
+              <div>
+
+                <h4 id="dropdownName">
+                  Alex Developer
+                </h4>
+
+                <p id="dropdownEmail">
+                  alex@gmail.com
+                </p>
+
+              </div>
+
+            </div>
+
+            <div class="dropdown-divider"></div>
+
+            <button class="dropdown-item">
+              <i data-lucide="user"></i>
+              Profile
+            </button>
+
+            <button class="dropdown-item">
+              <i data-lucide="settings"></i>
+              Settings
+            </button>
+
+            <button class="dropdown-item logout-red" id="dropdownLogout">
+              <i data-lucide="log-out"></i>
+              Logout
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- STATS -->
+
+      <section class="stats-section">
+
+        <div class="stat-card">
+
+          <div class="stat-icon green">
+            <i data-lucide="check-square"></i>
+          </div>
+
+          <h2 class="counter" data-target="127">0</h2>
+
+          <p>Questions Solved</p>
+
+        </div>
+
+        <div class="stat-card">
+
+          <div class="stat-icon cyan">
+            <i data-lucide="target"></i>
+          </div>
+
+          <h2 class="counter" data-target="65">0</h2>
+
+          <p>Accuracy %</p>
+
+        </div>
+
+        <div class="stat-card streak-card">
+
+          <div class="stat-icon orange flame-container">
+            <i data-lucide="flame"></i>
+          </div>
+
+          <h2 class="counter" data-target="7">0</h2>
+
+          <p>Day Streak</p>
+
+        </div>
+
+        <div class="stat-card">
+
+          <div class="stat-icon cyan">
+            <i data-lucide="trophy"></i>
+          </div>
+
+          <h2 class="counter" data-target="12">0</h2>
+
+          <p>Achievements</p>
+
+        </div>
+
+      </section>
+
+      <!-- BOTTOM -->
+
+      <section class="bottom-section">
+
+        <!-- ACTIVITY -->
+
+        <div class="dashboard-card">
+
+          <div class="card-header">
+
+            <h3>Recent Activity</h3>
+
+            <a href="#">View all</a>
+
+          </div>
+
+          <div class="activity-list">
+
+            <div class="activity-item">
+              <div>
+                <h4>Solved: Array Sum Bug</h4>
+                <p>2 mins ago</p>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div>
+                <h4>Solved: Loop Condition</h4>
+                <p>12 mins ago</p>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div>
+                <h4>Solved: Pointer Error</h4>
+                <p>35 mins ago</p>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div>
+                <h4>Attempted: String Compare</h4>
+                <p>1 hr ago</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+
+        <div class="dashboard-card">
+
+          <div class="card-header">
+
+            <h3>Achievements</h3>
+
+            <a href="#">View all</a>
+
+          </div>
+
+          <div class="achievement-list">
+
+            <div class="achievement-item">
+              <h4>🏆 First Bug Fixed</h4>
+              <p>Solve your first question</p>
+            </div>
+
+            <div class="achievement-item">
+              <h4>🔥 5 Correct Answers</h4>
+              <p>Solve 5 questions correctly</p>
+            </div>
+
+            <div class="achievement-item">
+              <h4>💻 C Language Beginner</h4>
+              <p>Solve 10 C questions</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script type="module" src="../js/dashboard.js"></script>
+
+</body>
+
+</html>

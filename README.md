@@ -28,11 +28,11 @@ https://defixer-frontend.vercel.app
 
 ### Login Page
 
-![Login Page](./assests/screenshots/login.png)
+![Login Page](./assets/screenshots/login.png)
 
 ### Signup Page
 
-![Signup Page](./assests/screenshots/signup.png)
+![Signup Page](./assets/screenshots/signup.png)
 
 ## Future Plans
 

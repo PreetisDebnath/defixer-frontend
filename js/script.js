@@ -7,29 +7,56 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
-  sendPasswordResetEmail,
+  sendPasswordResetEmail
 } from "./firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 /* EMAIL VALIDATION */
 
-function isValidEmail(email) {
+function isValidEmail(email){
+
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 }
 
 /* TOAST */
 
-function showToast(message) {
+let toastTimeout;
+
+function showToast(message){
+
   const toast =
     document.getElementById("toast");
+
+  clearTimeout(toastTimeout);
 
   toast.innerText = message;
 
   toast.classList.add("show");
 
-  setTimeout(() => {
+  toastTimeout = setTimeout(() => {
+
     toast.classList.remove("show");
+
   }, 3000);
+
 }
+
+/* AUTO REDIRECT IF LOGGED IN */
+
+onAuthStateChanged(auth, (user) => {
+
+  if(user){
+
+    window.location.href =
+      "./pages/dashboard.html";
+
+  }
+
+});
 
 /* TAB ELEMENTS */
 
@@ -65,6 +92,10 @@ const googleSignupBtn =
 const forgotPasswordBtn =
   document.getElementById("forgot-password");
 
+/* DISABLE SCROLL INITIALLY */
+
+document.body.classList.add("no-scroll");
+
 /* TAB SWITCHING */
 
 loginTab.addEventListener("click", () => {
@@ -77,7 +108,8 @@ loginTab.addEventListener("click", () => {
 
   signupTab.classList.remove("active-tab");
 
-  authCard.scrollTop = 0;
+  document.body.classList.add("no-scroll");
+
 });
 
 signupTab.addEventListener("click", () => {
@@ -90,12 +122,13 @@ signupTab.addEventListener("click", () => {
 
   loginTab.classList.remove("active-tab");
 
-  authCard.scrollTop = 0;
+  document.body.classList.remove("no-scroll");
+
 });
 
 /* SHOW / HIDE PASSWORD */
 
-function togglePassword(inputId, buttonId) {
+function togglePassword(inputId, buttonId){
 
   const input =
     document.getElementById(inputId);
@@ -108,7 +141,7 @@ function togglePassword(inputId, buttonId) {
 
   button.addEventListener("click", () => {
 
-    if(input.type === "password") {
+    if(input.type === "password"){
 
       input.type = "text";
 
@@ -118,13 +151,14 @@ function togglePassword(inputId, buttonId) {
 
     }
 
-    else {
+    else{
 
       input.type = "password";
 
       icon.classList.remove("fa-eye-slash");
 
       icon.classList.add("fa-eye");
+
     }
 
   });
@@ -156,16 +190,18 @@ signupPassword.addEventListener("input", () => {
   const password =
     signupPassword.value;
 
-  if(password.length < 6) {
+  if(password.length < 6){
 
     signupPassword.style.borderColor =
       "#EF4444";
+
   }
 
-  else {
+  else{
 
     signupPassword.style.borderColor =
       "#22D3EE";
+
   }
 
 });
@@ -180,16 +216,18 @@ confirmPasswordInput.addEventListener("input", () => {
   if(
     confirmPasswordInput.value ===
     signupPassword.value
-  ) {
+  ){
 
     confirmPasswordInput.style.borderColor =
       "#22D3EE";
+
   }
 
-  else {
+  else{
 
     confirmPasswordInput.style.borderColor =
       "#EF4444";
+
   }
 
 });
@@ -205,7 +243,8 @@ signupForm.addEventListener(
     const email =
       signupForm
       .querySelectorAll("input")[1]
-      .value;
+      .value
+      .trim();
 
     const password =
       document.getElementById(
@@ -224,29 +263,32 @@ signupForm.addEventListener(
       email === "" ||
       password === "" ||
       confirmPassword === ""
-    ) {
+    ){
 
       showToast("No inputs added!");
 
       return;
+
     }
 
-    if(!isValidEmail(email)) {
+    if(!isValidEmail(email)){
 
       showToast(
         "Enter a valid email address!"
       );
 
       return;
+
     }
 
-    if(password !== confirmPassword) {
+    if(password !== confirmPassword){
 
       showToast(
         "Passwords do not match!"
       );
 
       return;
+
     }
 
     signupButton.innerText =
@@ -254,7 +296,12 @@ signupForm.addEventListener(
 
     signupButton.disabled = true;
 
-    try {
+    try{
+
+      await setPersistence(
+        auth,
+        browserLocalPersistence
+      );
 
       await createUserWithEmailAndPassword(
         auth,
@@ -277,7 +324,7 @@ signupForm.addEventListener(
 
     }
 
-    catch(error) {
+    catch(error){
 
       signupButton.innerText =
         "Create Account";
@@ -287,36 +334,40 @@ signupForm.addEventListener(
       if(
         error.code ===
         "auth/email-already-in-use"
-      ) {
+      ){
 
         showToast(
           "Account already exists!"
         );
+
       }
 
       else if(
         error.code ===
         "auth/weak-password"
-      ) {
+      ){
 
         showToast(
           "Password must be at least 6 characters!"
         );
+
       }
 
       else if(
         error.code ===
         "auth/invalid-email"
-      ) {
+      ){
 
         showToast(
           "Invalid email address!"
         );
+
       }
 
-      else {
+      else{
 
         showToast("Signup failed!");
+
       }
 
     }
@@ -335,7 +386,8 @@ loginForm.addEventListener(
     const email =
       loginForm.querySelector(
         'input[type="email"]'
-      ).value;
+      ).value
+      .trim();
 
     const password =
       document.getElementById(
@@ -344,7 +396,7 @@ loginForm.addEventListener(
 
     const rememberMe =
       document.querySelector(
-        ".remember-label input"
+        '.remember-label input'
       ).checked;
 
     const loginButton =
@@ -353,20 +405,22 @@ loginForm.addEventListener(
     if(
       email === "" ||
       password === ""
-    ) {
+    ){
 
       showToast("No inputs added!");
 
       return;
+
     }
 
-    if(!isValidEmail(email)) {
+    if(!isValidEmail(email)){
 
       showToast(
         "Enter a valid email address!"
       );
 
       return;
+
     }
 
     loginButton.innerText =
@@ -374,22 +428,24 @@ loginForm.addEventListener(
 
     loginButton.disabled = true;
 
-    try {
+    try{
 
-      if(rememberMe) {
+      if(rememberMe){
 
         await setPersistence(
           auth,
           browserLocalPersistence
         );
+
       }
 
-      else {
+      else{
 
         await setPersistence(
           auth,
           browserSessionPersistence
         );
+
       }
 
       await signInWithEmailAndPassword(
@@ -402,8 +458,6 @@ loginForm.addEventListener(
         "Login Successful!"
       );
 
-      loginForm.reset();
-
       loginButton.innerText =
         "Login";
 
@@ -412,15 +466,13 @@ loginForm.addEventListener(
       setTimeout(() => {
 
         window.location.href =
-          "dashboard.html";
+          "./pages/dashboard.html";
 
-      }, 1200);
+      }, 1000);
 
     }
 
-    catch(error) {
-
-      console.log(error.code);
+    catch(error){
 
       loginButton.innerText =
         "Login";
@@ -433,36 +485,29 @@ loginForm.addEventListener(
 
         error.code ===
         "auth/invalid-credential"
-      ) {
+      ){
 
         showToast(
           "Account does not exist or credentials are incorrect!"
         );
+
       }
 
       else if(
         error.code ===
         "auth/wrong-password"
-      ) {
+      ){
 
         showToast(
           "Incorrect password!"
         );
+
       }
 
-      else if(
-        error.code ===
-        "auth/invalid-email"
-      ) {
-
-        showToast(
-          "Invalid email address!"
-        );
-      }
-
-      else {
+      else{
 
         showToast("Login failed!");
+
       }
 
     }
@@ -479,27 +524,30 @@ forgotPasswordBtn.addEventListener(
     const email =
       loginForm.querySelector(
         'input[type="email"]'
-      ).value;
+      ).value
+      .trim();
 
-    if(email === "") {
+    if(email === ""){
 
       showToast(
         "Enter your email first!"
       );
 
       return;
+
     }
 
-    if(!isValidEmail(email)) {
+    if(!isValidEmail(email)){
 
       showToast(
         "Enter a valid email!"
       );
 
       return;
+
     }
 
-    try {
+    try{
 
       await sendPasswordResetEmail(
         auth,
@@ -512,11 +560,12 @@ forgotPasswordBtn.addEventListener(
 
     }
 
-    catch(error) {
+    catch(error){
 
       showToast(
         "Failed to send reset email!"
       );
+
     }
 
   }
@@ -527,9 +576,14 @@ forgotPasswordBtn.addEventListener(
 const googleProvider =
   new GoogleAuthProvider();
 
-async function googleAuth() {
+async function googleAuth(){
 
-  try {
+  try{
+
+    await setPersistence(
+      auth,
+      browserLocalPersistence
+    );
 
     await signInWithPopup(
       auth,
@@ -543,15 +597,16 @@ async function googleAuth() {
     setTimeout(() => {
 
       window.location.href =
-        "dashboard.html";
+        "./pages/dashboard.html";
 
-    }, 1200);
+    }, 1000);
 
   }
 
-  catch(error) {
+  catch(error){
 
     showToast(error.message);
+
   }
 
 }

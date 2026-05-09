@@ -1,17 +1,113 @@
+html::-webkit-scrollbar,
+body::-webkit-scrollbar{
+    width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track{
+    background: #050816;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb{
+    background: linear-gradient(
+        to bottom,
+        #22D3EE,
+        #67E8F9
+    );
+
+    border-radius: 20px;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover{
+    background: #67E8F9;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html{
+    height: 100%;
+    scrollbar-width: thin;
+scrollbar-color: #22D3EE #050816;
+}
+
 body{
-    min-height: 100vh;
+    min-height: 100dvh;
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
-    padding: 40px 0;
+    padding: 32px 0;
+
+    overflow: hidden;
+
+    font-family: 'Inter', sans-serif;
+
+    background-color: #050816;
+
+    color: white;
+
+    position: relative;
+
+    scrollbar-width: thin;
+    scrollbar-color: #22D3EE #050816;
+}
+
+body::before{
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        radial-gradient(circle at top left, rgba(34, 211, 238, 0.15), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.12), transparent 35%),
+        #050816;
+
+    z-index: -2;
+}
+
+body.no-scroll{
+    overflow: hidden;
+}
+
+body::-webkit-scrollbar{
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track{
+    background: #050816;
+}
+
+body::-webkit-scrollbar-thumb{
+    background: linear-gradient(
+        to bottom,
+        #22D3EE,
+        #67E8F9
+    );
+
+    border-radius: 20px;
+}
+
+body::-webkit-scrollbar-thumb:hover{
+    background: #67E8F9;
+}
+
+body{
+    min-height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 32px 0;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -24,11 +120,14 @@ body{
         #050816;
 
     color: white;
+
+    position: relative;
 }
+
 /* BACKGROUND GLOW */
 
 .background-glow{
-    position: absolute;
+    position: fixed;
 
     width: 700px;
     height: 700px;
@@ -40,6 +139,8 @@ body{
     border-radius: 50%;
 
     z-index: 0;
+
+    pointer-events: none;
 }
 
 /* MAIN CONTAINER */
@@ -51,6 +152,8 @@ body{
 
     width: 100%;
     max-width: 500px;
+
+    padding: 20px;
 
     display: flex;
     flex-direction: column;
@@ -67,6 +170,11 @@ body{
 
 .logo-image{
     width: 72px;
+
+    border-radius: 100%;
+
+    box-shadow:
+        #22D3EE 0px 0px 3px;
 
     margin-bottom: 8px;
 }
@@ -103,8 +211,6 @@ body{
 .auth-card{
     width: 100%;
 
-    max-height: 75vh;
-
     padding: 30px;
 
     border-radius: 26px;
@@ -118,40 +224,10 @@ body{
     box-shadow:
         0 0 30px rgba(34, 211, 238, 0.06);
 
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    scrollbar-width: thin;
-    scrollbar-color: #22D3EE transparent;
+    overflow: visible;
 }
 
-.auth-card::-webkit-scrollbar{
-    width: 5px;
-}
-
-.auth-card::-webkit-scrollbar-track{
-    background: transparent;
-
-    margin-top: 22px;
-    margin-bottom: 22px;
-}
-
-.auth-card::-webkit-scrollbar-thumb{
-    background: #22D3EE;
-
-    border-radius: 20px;
-}
-
-.auth-card::-webkit-scrollbar-thumb:hover{
-    background: #67E8F9;
-}
-
-.auth-card::-webkit-scrollbar-button{
-    display: none;
-
-    width: 0;
-    height: 0;
-}
+/* HIDDEN */
 
 .hidden{
     display: none;
@@ -264,12 +340,28 @@ form{
         0 0 12px rgba(34, 211, 238, 0.2);
 }
 
+/* AUTOFILL FIX */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus{
+    -webkit-text-fill-color: white;
+
+    -webkit-box-shadow:
+        0 0 0px 1000px #0D1117 inset;
+
+    transition:
+        background-color 5000s ease-in-out 0s;
+}
+
 /* REMEMBER ME */
 
 .remember-section{
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    gap: 10px;
 
     margin-top: -4px;
 }
@@ -308,6 +400,8 @@ form{
     cursor: pointer;
 
     transition: 0.3s;
+
+    white-space: nowrap;
 }
 
 .forgot-password:hover{
@@ -464,8 +558,12 @@ form{
 
 @media (max-width: 600px){
 
+    body{
+    overflow-y: auto;
+}
+
     .container{
-        padding: 20px;
+        padding: 16px;
     }
 
     .website-name{
@@ -481,6 +579,8 @@ form{
     }
 
     .auth-card{
+        max-height: 78vh;
+
         padding: 24px;
     }
 
