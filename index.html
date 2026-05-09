@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Defixer</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    />
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    />
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+</head>
+
+<body>
+
+    <div class="background-glow"></div>
+
+    <div class="container">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <img
+                src="./assests/login-illustration.png"
+                alt="Defixer Logo"
+                class="logo-image"
+            />
+
+            <div class="brand-text">
+
+                <h1 class="website-name">
+                    DE<span class="change">FIXER</span>
+                </h1>
+
+                <p class="website-text">
+                    Debugging Practice Website
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- AUTH CARD -->
+
+        <div class="auth-card">
+
+            <!-- TABS -->
+
+            <div class="tabs">
+
+                <button
+                    id="login-tab"
+                    class="active-tab"
+                >
+                    Login
+                </button>
+
+                <button id="signup-tab">
+                    Sign Up
+                </button>
+
+            </div>
+
+            <!-- LOGIN FORM -->
+
+            <form id="login-form">
+
+                <input
+                    type="email"
+                    placeholder="Email Address"
+                    class="input-field"
+                />
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        class="input-field"
+                        id="login-password"
+                    />
+
+                    <span
+                        class="show-password"
+                        id="login-show-password"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+
+                </div>
+
+                <div class="remember-section">
+
+                    <label class="remember-label">
+
+                        <input type="checkbox" />
+
+                        Remember Me
+
+                    </label>
+
+                    <button
+                        type="button"
+                        class="forgot-password"
+                        id="forgot-password"
+                    >
+                        Forgot Password?
+                    </button>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Login
+                </button>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <button
+                    type="button"
+                    class="google-btn"
+                    id="google-login"
+                >
+
+                    <img
+                        src="https://www.svgrepo.com/show/475656/google-color.svg"
+                        alt="Google"
+                    >
+
+                    Continue with Google
+
+                </button>
+
+            </form>
+
+            <!-- SIGNUP FORM -->
+
+            <form
+                id="signup-form"
+                class="hidden"
+            >
+
+                <input
+                    type="text"
+                    placeholder="Username"
+                    class="input-field"
+                />
+
+                <input
+                    type="email"
+                    placeholder="Email Address"
+                    class="input-field"
+                />
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        class="input-field"
+                        id="signup-password"
+                    />
+
+                    <span
+                        class="show-password"
+                        id="signup-show-password"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+
+                </div>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        class="input-field"
+                        id="confirm-password"
+                    />
+
+                    <span
+                        class="show-password"
+                        id="confirm-show-password"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Create Account
+                </button>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <button
+                    type="button"
+                    class="google-btn"
+                    id="google-signup"
+                >
+
+                    <img
+                        src="https://www.svgrepo.com/show/475656/google-color.svg"
+                        alt="Google"
+                    >
+
+                    Continue with Google
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div id="toast"></div>
+
+    <script
+        type="module"
+        src="./js/script.js"
+    ></script>
+
+</body>
+
+</html>

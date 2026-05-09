@@ -1,0 +1,520 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    font-family: 'Inter', sans-serif;
+
+    background:
+        radial-gradient(circle at top left, rgba(34, 211, 238, 0.15), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.12), transparent 35%),
+        #050816;
+
+    color: white;
+}
+/* BACKGROUND GLOW */
+
+.background-glow{
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    background: rgba(34, 211, 238, 0.08);
+
+    filter: blur(140px);
+
+    border-radius: 50%;
+
+    z-index: 0;
+}
+
+/* MAIN CONTAINER */
+
+.container{
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* BRAND */
+
+.brand{
+    text-align: center;
+
+    margin-bottom: 18px;
+}
+
+.logo-image{
+    width: 72px;
+
+    margin-bottom: 8px;
+}
+
+.website-name{
+    font-size: 52px;
+
+    font-weight: 700;
+
+    color: #FFFFFF;
+
+    letter-spacing: 2px;
+
+    line-height: 1;
+}
+
+.website-name .change{
+    color: #67E8F9;
+}
+
+.website-text{
+    font-size: 16px;
+
+    color: #FFFFFF;
+
+    letter-spacing: 1px;
+
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+
+/* AUTH CARD */
+
+.auth-card{
+    width: 100%;
+
+    max-height: 75vh;
+
+    padding: 30px;
+
+    border-radius: 26px;
+
+    background: rgba(22, 27, 34, 0.75);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(34, 211, 238, 0.18);
+
+    box-shadow:
+        0 0 30px rgba(34, 211, 238, 0.06);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #22D3EE transparent;
+}
+
+.auth-card::-webkit-scrollbar{
+    width: 5px;
+}
+
+.auth-card::-webkit-scrollbar-track{
+    background: transparent;
+
+    margin-top: 22px;
+    margin-bottom: 22px;
+}
+
+.auth-card::-webkit-scrollbar-thumb{
+    background: #22D3EE;
+
+    border-radius: 20px;
+}
+
+.auth-card::-webkit-scrollbar-thumb:hover{
+    background: #67E8F9;
+}
+
+.auth-card::-webkit-scrollbar-button{
+    display: none;
+
+    width: 0;
+    height: 0;
+}
+
+.hidden{
+    display: none;
+}
+
+/* TABS */
+
+.tabs{
+    display: flex;
+
+    margin-bottom: 26px;
+}
+
+.tabs button{
+    flex: 1;
+
+    background: transparent;
+
+    border: none;
+
+    color: #8B949E;
+
+    font-size: 18px;
+
+    padding-bottom: 12px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.tabs button:hover{
+    color: #22D3EE;
+}
+
+.tabs .active-tab{
+    color: #22D3EE;
+
+    border-bottom: 2px solid #22D3EE;
+}
+
+/* FORM */
+
+form{
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+/* PASSWORD BOX */
+
+.password-box{
+    position: relative;
+
+    width: 100%;
+}
+
+.show-password{
+    position: absolute;
+
+    right: 16px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #22D3EE;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.show-password:hover{
+    color: #67E8F9;
+}
+
+/* INPUT FIELD */
+
+.input-field{
+    width: 100%;
+
+    background: #0D1117;
+
+    border: 1px solid #30363D;
+
+    border-radius: 14px;
+
+    padding: 15px;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.input-field::placeholder{
+    color: #6E7681;
+}
+
+.input-field:focus{
+    border-color: #22D3EE;
+
+    box-shadow:
+        0 0 12px rgba(34, 211, 238, 0.2);
+}
+
+/* REMEMBER ME */
+
+.remember-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: -4px;
+}
+
+.remember-label{
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 14px;
+
+    color: #C9D1D9;
+}
+
+.remember-label input{
+    width: 16px;
+    height: 16px;
+
+    accent-color: #22D3EE;
+
+    cursor: pointer;
+}
+
+/* FORGOT PASSWORD */
+
+.forgot-password{
+    background: transparent;
+
+    border: none;
+
+    color: #22D3EE;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.forgot-password:hover{
+    color: #67E8F9;
+}
+
+/* MAIN BUTTON */
+
+.login-btn{
+    margin-top: 4px;
+
+    background: #22D3EE;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 15px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.login-btn:hover{
+    background: #67E8F9;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(34, 211, 238, 0.35);
+}
+
+.login-btn:disabled{
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+/* DIVIDER */
+
+.divider{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 4px;
+}
+
+.divider span{
+    color: #8B949E;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+}
+
+/* GOOGLE BUTTON */
+
+.google-btn{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    background: white;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.google-btn img{
+    width: 22px;
+}
+
+.google-btn:hover{
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.15);
+}
+
+/* TOAST */
+
+#toast{
+    position: fixed;
+
+    top: 30px;
+    right: 30px;
+
+    min-width: 260px;
+
+    padding: 16px 22px;
+
+    border-radius: 14px;
+
+    background: rgba(15, 23, 42, 0.96);
+
+    border: 1px solid rgba(34, 211, 238, 0.25);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 18px rgba(34, 211, 238, 0.15);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(-20px);
+
+    transition: 0.35s ease;
+
+    z-index: 9999;
+}
+
+#toast.show{
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px){
+
+    .container{
+        padding: 20px;
+    }
+
+    .website-name{
+        font-size: 40px;
+    }
+
+    .logo-image{
+        width: 60px;
+    }
+
+    .website-text{
+        font-size: 14px;
+    }
+
+    .auth-card{
+        padding: 24px;
+    }
+
+    .tabs button{
+        font-size: 16px;
+    }
+
+    .input-field{
+        padding: 14px;
+
+        font-size: 15px;
+    }
+
+    .login-btn{
+        font-size: 16px;
+
+        padding: 14px;
+    }
+
+    .google-btn{
+        font-size: 15px;
+
+        padding: 13px;
+    }
+
+    .forgot-password{
+        font-size: 12px;
+    }
+
+    #toast{
+        right: 16px;
+        left: 16px;
+
+        min-width: auto;
+    }
+
+}
