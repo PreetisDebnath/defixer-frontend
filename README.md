@@ -15,6 +15,7 @@ https://defixer-frontend.vercel.app
 - Debugging challenge system
 - Difficulty-based practice
 - Score and result system
+- Firebase Authentication
 
 ## Tech Stack
 
@@ -34,9 +35,16 @@ https://defixer-frontend.vercel.app
 
 ![Signup Page](./assets/screenshots/signup.png)
 
+### Dashboard Page
+
+![Dashboard Page](./assets/screenshots/Dashboard.png)
+
+### Loading Screen
+
+![Loading Screen](./assets/screenshots/Loading%20Screen.png)
+
 ## Future Plans
 
-- Firebase Authentication
 - Real-time leaderboard
 - Multiplayer debugging battles
 - Profile system
