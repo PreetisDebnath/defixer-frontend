@@ -15,7 +15,7 @@
   <link
     rel="icon"
     type="image/png"
-      href="../assets/icons/web.png"
+    href="../assets/icons/web.png"
   />
 
   <link
@@ -45,13 +45,90 @@
 
 <body class="dashboard-page">
 
+  <!-- ADVANCED LOADER -->
+
+  <div
+    class="dashboard-loader"
+    id="dashboardLoader"
+  >
+
+    <!-- GRID -->
+
+    <div class="loader-grid"></div>
+
+    <!-- PARTICLES -->
+
+    <div class="loader-particles">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+    <!-- CENTER -->
+
+    <div class="loader-center">
+
+      <!-- OUTER RING -->
+
+      <div class="loader-ring outer-ring"></div>
+
+      <!-- MIDDLE RING -->
+
+      <div class="loader-ring middle-ring"></div>
+
+      <!-- INNER CORE -->
+
+      <div class="loader-core">
+
+        <div class="core-glow"></div>
+
+        <img
+          src="../assets/login-illustration.png"
+          alt="Defixer"
+        >
+
+      </div>
+
+    </div>
+
+    <!-- TEXT -->
+
+    <div class="loader-text-wrapper">
+
+      <h1 class="loader-title">
+        DE<span>FIXER</span>
+      </h1>
+
+      <p class="loader-subtitle">
+        Initializing Dashboard...
+      </p>
+
+      <div class="loader-progress">
+
+        <div class="loader-progress-fill"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- DASHBOARD -->
+
   <div class="dashboard-container">
 
     <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
-      <div>
+      <div class="sidebar-top">
+
+        <!-- LOGO -->
 
         <div class="logo">
 
@@ -65,6 +142,8 @@
           </h2>
 
         </div>
+
+        <!-- NAVIGATION -->
 
         <nav class="nav-menu">
 
@@ -114,14 +193,21 @@
 
       </div>
 
-      <div
-        class="logout-btn"
-        id="logoutBtn"
-      >
+      <!-- SIDEBAR BOTTOM -->
 
-        <i data-lucide="log-out"></i>
+      <div class="sidebar-bottom">
 
-        <span>Logout</span>
+        <button
+          class="logout-btn"
+          id="logoutBtn"
+          type="button"
+        >
+
+          <i data-lucide="log-out"></i>
+
+          <span>Logout</span>
+
+        </button>
 
       </div>
 
@@ -142,7 +228,7 @@
           </p>
 
           <h1 id="username">
-            Developer 👋
+            Loading...
           </h1>
 
           <!-- XP -->
@@ -152,11 +238,11 @@
             <div class="xp-info">
 
               <span id="levelText">
-                Level 1
+                Loading...
               </span>
 
               <span id="xpText">
-                0 / 500 XP
+                Loading...
               </span>
 
             </div>
@@ -189,7 +275,10 @@
               alt="profile"
             >
 
-            <button class="edit-btn">
+            <button
+              class="edit-btn"
+              type="button"
+            >
 
               <i data-lucide="pencil"></i>
 
@@ -215,11 +304,11 @@
               <div>
 
                 <h4 id="dropdownName">
-                  Developer
+                  Loading...
                 </h4>
 
                 <p id="dropdownEmail">
-                  user@email.com
+                  Loading...
                 </p>
 
               </div>
@@ -228,7 +317,10 @@
 
             <div class="dropdown-divider"></div>
 
-            <button class="dropdown-item">
+            <button
+              class="dropdown-item"
+              type="button"
+            >
 
               <i data-lucide="user"></i>
 
@@ -236,7 +328,10 @@
 
             </button>
 
-            <button class="dropdown-item">
+            <button
+              class="dropdown-item"
+              type="button"
+            >
 
               <i data-lucide="settings"></i>
 
@@ -247,6 +342,7 @@
             <button
               class="dropdown-item logout-red"
               id="dropdownLogout"
+              type="button"
             >
 
               <i data-lucide="log-out"></i>
@@ -276,7 +372,7 @@
           </div>
 
           <h2 id="questionsSolved">
-            0
+            --
           </h2>
 
           <p>
@@ -296,7 +392,7 @@
           </div>
 
           <h2 id="accuracyPercent">
-            0%
+            --
           </h2>
 
           <p>
@@ -318,7 +414,7 @@
           </div>
 
           <h2 id="dayStreak">
-            0
+            --
           </h2>
 
           <p>
@@ -338,7 +434,7 @@
           </div>
 
           <h2 id="achievementCount">
-            0
+            --
           </h2>
 
           <p>

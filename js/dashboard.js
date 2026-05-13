@@ -29,6 +29,16 @@ lucide.createIcons();
 
 /* DOM ELEMENTS */
 
+const dashboardContainer =
+    document.querySelector(
+        ".dashboard-container"
+    );
+
+const dashboardLoader =
+    document.getElementById(
+        "dashboardLoader"
+    );
+
 const username =
     document.getElementById("username");
 
@@ -132,14 +142,27 @@ onAuthStateChanged(
 
         if(user){
 
-            await createUserDocument(
-                user
-            );
+            try{
 
-            initializeDashboard(
-                user
-            );
+                await createUserDocument(
+                    user
+                );
 
+                await initializeDashboard(
+                    user
+                );
+
+                showDashboard();
+
+            }
+
+            catch(error){
+
+                console.log(
+                    "Dashboard Init Error:",
+                    error
+                );
+            }
         }
 
         else{
@@ -162,13 +185,44 @@ async function initializeDashboard(
         user.uid
     );
 
-    loadRecentActivity(
-        user.uid
-    );
+    await Promise.all([
 
-    loadAchievements(
-        user.uid
-    );
+        loadRecentActivity(
+            user.uid
+        ),
+
+        loadAchievements(
+            user.uid
+        )
+    ]);
+}
+
+/* SHOW DASHBOARD */
+
+function showDashboard(){
+
+    requestAnimationFrame(()=>{
+
+        if(dashboardContainer){
+
+            dashboardContainer.classList.add(
+                "loaded"
+            );
+        }
+
+        if(dashboardLoader){
+
+            dashboardLoader.classList.add(
+                "hidden"
+            );
+
+            setTimeout(()=>{
+
+                dashboardLoader.remove();
+
+            }, 400);
+        }
+    });
 }
 
 /* LOAD PROFILE */
@@ -280,10 +334,19 @@ async function loadRecentActivity(
         activityList.innerHTML =
         `
         <div class="activity-item">
+
             <div>
-                <h4>No activity yet</h4>
-                <p>Start solving questions</p>
+
+                <h4>
+                    No activity yet
+                </h4>
+
+                <p>
+                    Start solving questions
+                </p>
+
             </div>
+
         </div>
         `;
 
@@ -367,15 +430,20 @@ async function loadAchievements(
 
 /* PROFILE DROPDOWN */
 
-profileToggle.addEventListener(
-    "click",
-    ()=>{
+if(profileToggle){
 
-        profileDropdown.classList.toggle(
-            "active"
-        );
-    }
-);
+    profileToggle.addEventListener(
+        "click",
+        (e)=>{
+
+            e.stopPropagation();
+
+            profileDropdown.classList.toggle(
+                "active"
+            );
+        }
+    );
+}
 
 /* CLOSE DROPDOWN */
 
@@ -384,6 +452,8 @@ window.addEventListener(
     (e)=>{
 
         if(
+            profileDropdown &&
+            profileToggle &&
             !profileToggle.contains(
                 e.target
             )
@@ -391,6 +461,25 @@ window.addEventListener(
             !profileDropdown.contains(
                 e.target
             )
+        ){
+
+            profileDropdown.classList.remove(
+                "active"
+            );
+        }
+    }
+);
+
+/* ESC KEY CLOSE */
+
+window.addEventListener(
+    "keydown",
+    (e)=>{
+
+        if(
+            e.key === "Escape"
+            &&
+            profileDropdown
         ){
 
             profileDropdown.classList.remove(
@@ -410,24 +499,32 @@ async function logoutUser(){
 
         window.location.href =
             "../index.html";
-
     }
 
     catch(error){
 
-        console.log(error);
+        console.log(
+            "Logout Error:",
+            error
+        );
     }
 }
 
-logoutBtn.addEventListener(
-    "click",
-    logoutUser
-);
+if(logoutBtn){
 
-dropdownLogout.addEventListener(
-    "click",
-    logoutUser
-);
+    logoutBtn.addEventListener(
+        "click",
+        logoutUser
+    );
+}
+
+if(dropdownLogout){
+
+    dropdownLogout.addEventListener(
+        "click",
+        logoutUser
+    );
+}
 
 /* SIDEBAR INDICATOR */
 
@@ -459,6 +556,13 @@ navItems.forEach(
 
 function moveIndicator(index){
 
+    if(
+        !activeIndicator ||
+        window.innerWidth <= 950
+    ){
+        return;
+    }
+
     const topPosition =
         index * 64 + 8;
 
@@ -476,6 +580,13 @@ const cards =
     );
 
 cards.forEach((card)=>{
+
+    const originalBackground =
+        window.getComputedStyle(card)
+        .background;
+
+    card.dataset.originalBackground =
+        originalBackground;
 
     card.addEventListener(
         "mousemove",
@@ -496,7 +607,8 @@ cards.forEach((card)=>{
                 circle at ${x}px ${y}px,
                 rgba(34,211,238,0.08),
                 rgba(255,255,255,0.02)
-            )
+            ),
+            ${card.dataset.originalBackground}
             `;
         }
     );
@@ -506,13 +618,7 @@ cards.forEach((card)=>{
         ()=>{
 
             card.style.background =
-            `
-            linear-gradient(
-                145deg,
-                rgba(255,255,255,0.05),
-                rgba(255,255,255,0.015)
-            )
-            `;
+                card.dataset.originalBackground;
         }
     );
 });
@@ -524,16 +630,19 @@ const streakCard =
         ".streak-card"
     );
 
-setInterval(()=>{
+if(streakCard){
 
-    streakCard.style.boxShadow =
-        "0 0 28px rgba(249,115,22,0.16)";
-
-    setTimeout(()=>{
+    setInterval(()=>{
 
         streakCard.style.boxShadow =
-            "";
+            "0 0 28px rgba(249,115,22,0.16)";
 
-    }, 700);
+        setTimeout(()=>{
 
-}, 2500);
+            streakCard.style.boxShadow =
+                "";
+
+        }, 700);
+
+    }, 2500);
+}
