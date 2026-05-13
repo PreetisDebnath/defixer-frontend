@@ -43,6 +43,16 @@ https://defixer-frontend.vercel.app
 
 ![Loading Screen](./assets/screenshots/Loading%20Screen.png)
 
+### Debug Arena
+
+![Debug Arena V1a](./assets/screenshots/DebugArena1.png)
+
+![Debug Arena V1b](./assets/screenshots/DebugArena2.png)
+
+### Result Screen
+
+![Result Screen](./assets/screenshots/Result%20Screen.png)
+
 ## Future Plans
 
 - Real-time leaderboard

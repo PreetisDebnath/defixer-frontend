@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Debug Arena</title>
+
+  <!-- FAVICON -->
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="../assets/icons/web.png"
+  />
+
+  <!-- GOOGLE FONT -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- LUCIDE -->
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="../css/practice.css"
+  />
+
+</head>
+
+<body class="practice-page">
+
+    <!-- ADVANCED LOADER -->
+
+<div
+  class="dashboard-loader"
+  id="dashboardLoader"
+>
+
+  <!-- GRID -->
+
+  <div class="loader-grid"></div>
+
+  <!-- PARTICLES -->
+
+  <div class="loader-particles">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+  <!-- CENTER -->
+
+  <div class="loader-center">
+
+    <div class="loader-ring outer-ring"></div>
+
+    <div class="loader-ring middle-ring"></div>
+
+    <div class="loader-core">
+
+      <div class="core-glow"></div>
+
+      <img
+        src="../assets/login-illustration.png"
+        alt="Debug Arena"
+      >
+
+    </div>
+
+  </div>
+
+  <!-- TEXT -->
+
+  <div class="loader-text-wrapper">
+
+    <h1 class="loader-title">
+      DEBUG <span>ARENA</span>
+    </h1>
+
+    <p class="loader-subtitle">
+      Initializing Engine...
+    </p>
+
+    <div class="loader-progress">
+
+      <div class="loader-progress-fill"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- BACKGROUND GLOW -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- MAIN -->
+
+  <main class="practice-layout">
+
+    <!-- LEFT SECTION -->
+
+    <section class="quiz-section">
+
+      <!-- TOPBAR -->
+
+      <header class="practice-header">
+
+        <!-- LEFT -->
+
+        <div class="header-left">
+
+          <button
+            class="icon-btn"
+            type="button"
+            aria-label="Menu"
+          >
+
+            <i data-lucide="menu"></i>
+
+          </button>
+
+          <!-- FILTERS -->
+
+          <div class="filters-wrapper">
+
+            <!-- LANGUAGE -->
+
+            <div class="select-box">
+
+              <label for="language-filter">
+                Language
+              </label>
+
+              <div class="select-wrapper">
+
+                <select id="language-filter">
+
+                  <option value="All">
+                    All
+                  </option>
+
+                  <option value="C">
+                    C
+                  </option>
+
+                  <option value="C++">
+                    C++
+                  </option>
+
+                  <option value="Java">
+                    Java
+                  </option>
+
+                  <option value="Python">
+                    Python
+                  </option>
+
+                </select>
+
+                <i data-lucide="chevron-down"></i>
+
+              </div>
+
+            </div>
+
+            <!-- DIFFICULTY -->
+
+            <div class="select-box">
+
+              <label for="difficulty-filter">
+                Difficulty
+              </label>
+
+              <div class="select-wrapper">
+
+                <select id="difficulty-filter">
+
+                  <option value="All">
+                    All
+                  </option>
+
+                  <option value="Easy">
+                    Easy
+                  </option>
+
+                  <option value="Medium">
+                    Medium
+                  </option>
+
+                  <option value="Hard">
+                    Hard
+                  </option>
+
+                </select>
+
+                <i data-lucide="chevron-down"></i>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="header-right">
+
+          <button
+            class="icon-btn"
+            type="button"
+            aria-label="Notifications"
+          >
+
+            <i data-lucide="bell"></i>
+
+          </button>
+
+          <div class="profile-image">
+
+            <img
+              src="../assets/icons/avatar.jpg"
+              alt="Profile"
+            >
+
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- QUESTION CARD -->
+
+      <section class="question-card">
+
+        <!-- TOP -->
+
+        <div class="question-top">
+
+          <div class="question-left">
+
+            <p
+              class="question-count"
+              id="question-count"
+            >
+              Question 1 / 5
+            </p>
+
+            <h1
+              class="question-title"
+              id="question-title"
+            >
+              Loading question...
+            </h1>
+
+          </div>
+
+          <button
+            class="bookmark-btn"
+            type="button"
+          >
+
+            <i data-lucide="bookmark"></i>
+
+            Bookmark
+
+          </button>
+
+        </div>
+
+        <!-- TAGS -->
+
+        <div class="question-tags">
+
+          <div
+            class="tag cyan"
+            id="question-language"
+          >
+            C
+          </div>
+
+          <div
+            class="tag green"
+            id="question-difficulty"
+          >
+            Easy
+          </div>
+
+          <div
+            class="tag orange"
+            id="question-topic"
+          >
+            Loops
+          </div>
+
+        </div>
+
+        <!-- CODE BLOCK -->
+
+        <div class="code-block">
+
+<pre><code id="question-code"></code></pre>
+
+        </div>
+
+        <!-- OPTIONS -->
+
+        <div class="options-section">
+
+          <p class="option-heading">
+            Select the most appropriate answer.
+          </p>
+
+          <div
+            class="options-container"
+            id="options-container"
+          >
+
+          </div>
+
+        </div>
+
+        <!-- EXPLANATION -->
+
+        <div
+          class="explanation-box hidden"
+          id="explanation-box"
+        >
+
+          <div class="explanation-header">
+
+            <i data-lucide="info"></i>
+
+            <h3>
+              Explanation
+            </h3>
+
+          </div>
+
+          <p id="explanation-text">
+            Explanation appears here.
+          </p>
+
+        </div>
+
+        <!-- ACTIONS -->
+
+        <div class="action-buttons">
+
+          <button
+            class="btn btn-secondary"
+            type="button"
+            id="hint-btn"
+          >
+
+            <i data-lucide="lightbulb"></i>
+
+            Hint
+
+          </button>
+
+          <button
+            class="btn btn-primary"
+            type="button"
+            id="submit-btn"
+          >
+
+            Submit Answer
+
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            type="button"
+            id="next-btn"
+          >
+
+            Next
+
+            <i data-lucide="arrow-right"></i>
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </section>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <!-- PROGRESS -->
+
+      <section class="sidebar-card">
+
+        <div class="card-header">
+
+          <h3>
+            Your Progress
+          </h3>
+
+          <i data-lucide="target"></i>
+
+        </div>
+
+        <div
+  class="progress-circle"
+  id="progress-circle"
+>
+
+          <div class="progress-inner">
+
+            <h2 id="accuracy-value">
+              0%
+            </h2>
+
+            <p>
+              Accuracy
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="stats-list">
+
+          <div class="stat-item">
+
+            <span>
+              Solved
+            </span>
+
+            <strong
+              class="green-text"
+              id="solved-count"
+            >
+              0
+            </strong>
+
+          </div>
+
+          <div class="stat-item">
+
+            <span>
+              Attempted
+            </span>
+
+            <strong
+              class="cyan-text"
+              id="attempted-count"
+            >
+              0
+            </strong>
+
+          </div>
+
+          <div class="stat-item">
+
+            <span>
+              Wrong
+            </span>
+
+            <strong
+              class="red-text"
+              id="wrong-count"
+            >
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- STREAK -->
+
+      <section class="sidebar-card streak-card">
+
+        <div class="card-header">
+
+          <h3>
+            Current Streak
+          </h3>
+
+          <i data-lucide="flame"></i>
+
+        </div>
+
+        <div class="streak-box">
+
+          <div class="fire-circle">
+            🔥
+          </div>
+
+          <h2>
+            7 Days
+          </h2>
+
+          <p>
+            Keep solving daily
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- XP -->
+
+      <section class="sidebar-card">
+
+        <div class="card-header">
+
+          <h3>
+            Total XP
+          </h3>
+
+          <i data-lucide="sparkles"></i>
+
+        </div>
+
+        <div class="xp-box">
+
+          <h2 id="xp-value">
+            ⭐ 0 XP
+          </h2>
+
+          <p id="level-text">
+            Level 1
+          </p>
+
+          <div class="xp-bar">
+
+            <div
+              class="xp-fill"
+              id="xp-fill"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </aside>
+
+  </main>
+
+  <!-- RESULT MODAL -->
+
+  <div
+    class="result-modal hidden"
+    id="result-modal"
+  >
+
+    <div class="result-card">
+
+      <div class="result-icon">
+
+        🏆
+
+      </div>
+
+      <h2>
+        Quiz Completed!
+      </h2>
+
+      <p class="result-subtitle">
+        Great work completing Debug Arena.
+      </p>
+
+      <div class="result-stats">
+
+        <div class="result-stat">
+
+          <span>
+            Score
+          </span>
+
+          <strong id="final-score">
+            0 / 0
+          </strong>
+
+        </div>
+
+        <div class="result-stat">
+
+          <span>
+            Accuracy
+          </span>
+
+          <strong id="final-accuracy">
+            0%
+          </strong>
+
+        </div>
+
+        <div class="result-stat">
+
+          <span>
+            XP Earned
+          </span>
+
+          <strong id="final-xp">
+            0 XP
+          </strong>
+
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-primary replay-btn"
+        id="replay-btn"
+      >
+
+        Replay Quiz
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- PRACTICE JS -->
+
+  <script
+    type="module"
+    src="../js/practice.js"
+  ></script>
+
+</body>
+
+</html>
