@@ -1,0 +1,376 @@
+C Language Debugs
+
+Easy
+
+Q1.
+//what will be the output of the following.
+#include <stdio.h>
+int main() {
+    int a = 10;
+    printf("%d", a);
+    return 0;
+}
+
+A)a
+B)10
+C)%d
+D)Error
+
+Answer B
+printf("%d", a);`prints the value stored in the variable`a`. Here, `a`is an integer variable with value`10`. The format specifier `%d`is specifically used in C to display integer values. When the program runs,`printf()`replaces`%d`with the actual value of`a`, so the output becomes `10`.
+
+
+Q2.
+// fix the code
+#include <stdio.h>
+int main() {
+    int a = 5.7;
+    printf("%f", a);
+    return 0;
+}
+
+A)float a = 5.7;
+  printf("%f", a);
+B)char a = 5.7;
+  printf("%c", a);
+C)int a = 5.7;
+  printf("%d", a);
+D)double a = 5.7;
+  printf("%d", a);
+
+Answer C
+int data type can store only whole numbers, so when 5.7 is assigned to an int variable, the decimal part is removed automatically and the value becomes 5. Also, %f is used for floating-point values, not integers, causing a type mismatch. Using float a = 5.7; and %f correctly stores and prints the decimal number.
+
+Q3.
+#include <stdio.h>
+int main() {
+    int a = 10
+    printf("%d", a);
+    return 0;
+}
+
+A)int a = 10;
+B)int a == 10;
+C)int a := 10;
+D)int a = "10";
+
+Answer A
+In C, every statement must end with a semicolon ;. The line int a = 10 is missing a semicolon, so the compiler cannot recognize where the statement ends. This causes a syntax error during compilation. Adding ; fixes the problem.
+
+Q4.
+Required output "10"
+#include <stdio.h>
+int main() {
+    int a = 5, b = 2;
+    printf("%d", a ^ b);
+    return 0;
+}
+
+A)%
+B)*
+C)/
+D)+
+
+Answer B
+The operator ^ in C is not used for multiplication; it is the bitwise XOR operator. If the programmer wants to multiply two numbers, the correct operator is *. Using ^ gives a completely different result because it performs bit-level operations instead of arithmetic multiplication.
+
+Q5.
+//Required output "Eligible for voting"
+#include <stdio.h>
+int main() {
+    int age = 20;
+    if(age < 18)
+        printf("Eligible for voting");
+    else
+        printf("Not eligible for voting");
+    return 0;
+}
+
+A)if(age > 18)
+B)if(age >= 18)
+C)if(age == 18)
+D)if(age <= 18)
+
+Answer B
+The required output is "Eligible for voting" and the age is 20. The condition age < 18 is incorrect because it checks for people younger than 18. Voting eligibility requires age to be 18 or more, so the correct condition is age >= 18.
+
+Q6.
+// Find the output
+#include <stdio.h>
+int main() {
+    int x = 5;
+    if(x > 2)
+        if(x > 10)
+            printf("A");
+        else
+            printf("B");
+    return 0;
+}
+
+Answer is B
+First, the condition x > 2 is true because 5 > 2. Then the inner condition x > 10 is checked, which is false because 5 is not greater than 10. Therefore, the else block executes and prints "B".
+
+Q7.
+//Required output 1 2 3 4 5
+#include <stdio.h>
+int main() {
+    int i;
+    for(i = 1; i >= 5; i++)
+        printf("%d ", i);
+    return 0;
+}
+A)i <= 5
+B)i == 5
+C)i != 5
+D)i < 1
+
+Answer A
+The loop starts from 1, but the condition i >= 5 is false immediately because 1 is not greater than or equal to 5. Therefore, the loop never executes. Changing the condition to i <= 5 allows the loop to run from 1 to 5.
+
+Q8.
+// What will be output?
+#include <stdio.h>
+
+int main() {
+    int i = 1;
+    while(i <= 5) {
+        printf("%d ", i);
+    }
+    return 0;
+}
+
+A)1 2 3 4 5
+B)1
+C)Infinite loop
+D)No output
+
+Answer C
+The condition i <= 5 always remains true because the value of i is never updated inside the loop. Since i stays equal to 1, the loop keeps running forever and repeatedly prints 1.
+
+Q9.
+// What will be output?
+#include <stdio.h>
+int main() {
+    int i;
+    for(i = 1; i <= 3; i++) {
+        printf("*");
+    }
+    return 0;
+}
+
+Answer ***
+The loop runs three times because i goes from 1 to 3. During each iteration, one * is printed. Therefore, the final output becomes ***.
+
+Q10.
+// Required output
+***
+***
+***
+#include <stdio.h>
+int main() {
+    int i, j;
+    for(i = 1; i <= 3; i++) {
+        for(j = 1; j <= 2; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+A)for(j = 1; j <= 3; j++)
+B)for(i = 1; i <= 2; i++)
+C)printf("**");
+D)for(j = 1; j >= 3; j++)
+
+Answer A
+The outer loop already runs 3 times, so the program correctly creates 3 rows. However, the inner loop runs only 2 times, printing only 2 stars in each row. To get the required output of 3 stars per row, the inner loop condition must be changed from j <= 2 to j <= 3.
+
+Medium
+
+Q1.
+//What will be output?
+#include <stdio.h>
+void show() {
+    printf("Hello ");
+}
+int main() {
+    show();
+    show();
+    return 0;
+}
+
+A)Hello
+B)Hello Hello
+C)HelloHello
+D)Error
+
+Answer C
+The function show() contains printf("Hello ");, which prints the text "Hello " whenever the function is called. Inside main(), the function is called two times using show(); show();. Since there is no newline between the calls, both outputs are printed continuously on the same line. Therefore, the final output becomes HelloHello.
+
+Q2.
+//Required Output 25
+#include <stdio.h>
+void square(int n) {
+    return n * n;
+}
+int main() {
+    printf("%d", square(5));
+    return 0;
+}
+
+A)int square(int n)
+B)float square(int n)
+C)char square(int n)
+D)double square(int n)
+
+Answer A
+The function square() returns the value n * n using the return statement. However, the function is declared with the return type void, which means the function should not return any value. This creates an error because a void function cannot send data back to the caller. Since n * n produces an integer value, the correct return type should be int. After changing it to int square(int n), the function correctly returns 25.
+
+Q3.
+//What Will be the output?
+#include <stdio.h>
+int main() {
+    int arr[3] = {10, 20, 30};
+    printf("%d", arr[1]);
+    return 0;
+}
+
+Answer 20
+Array indexing starts from 0. Therefore:
+arr[0] = 10
+arr[1] = 20
+arr[2] = 30
+So arr[1] prints 20.
+
+Q4.
+ // What will be the output
+#include <stdio.h>
+int main() {
+    char name[] = "Code";
+    printf("%c", name[2]);
+    return 0;
+}
+
+Answer d
+Strings are character arrays and indexing starts from 0.
+name[0] = C
+name[1] = o
+name[2] = d
+Therefore, the output is d.
+
+Q5.
+//What will be output
+#include <stdio.h>
+int main() {
+    int arr[] = {1, 2, 3};
+    int i;
+    for(i = 0; i < 3; i++)
+        printf("%d ", arr[i]);
+    return 0;
+}
+
+Answer 1 2 3
+The loop starts with i = 0 and continues while i < 3. During each iteration, the program prints arr[i]. Since the array contains {1, 2, 3}, the loop prints:
+arr[0] = 1
+arr[1] = 2
+arr[2] = 3
+After i becomes 3, the condition i < 3 becomes false and the loop stops. Therefore, the output is 1 2 3.
+
+Q6.
+//Required output Welcome
+#include <stdio.h>
+void display() {
+    printf("Welcome");
+}
+int main() {
+    return 0;
+}
+
+A)display();
+B)printf(display);
+C)return display();
+D)show();
+
+Answer A
+The function display() is correctly defined and contains the statement:
+printf("Welcome");
+However, defining a function alone does not execute it. A function runs only when it is called inside another function like main(). Since display(); is missing inside main(), nothing is printed. Adding display(); calls the function and produces the required output "Welcome".
+
+Q7
+//Find Output
+#include <stdio.h>
+int main() {
+    int i, j;
+    for(i = 1; i <= 2; i++) {
+        for(j = 1; j <= 2; j++) {
+            printf("%d ", j);
+        }
+    }
+    return 0;
+}
+
+Answer 1 2 1 2
+The outer loop runs 2 times because i goes from 1 to 2. For every iteration of the outer loop, the inner loop also runs 2 times and prints the values of j, which are 1 and 2. Since the inner loop executes completely during each outer loop cycle, the sequence 1 2 gets printed twice. Therefore, the final output becomes 1 2 1 2.
+
+Q8.
+//Required Output 1 2 3 4 5
+#include <stdio.h>
+int main() {
+    int i = 1;
+    while(i <= 5) {
+        printf("%d ", i);
+    }
+    return 0;
+}
+
+A)i++;
+B)i--;
+C)break;
+D)continue;
+
+Answer A
+The loop condition is:
+while(i <= 5)
+Initially, i = 1, so the condition is true. However, inside the loop, the value of i is never changed. Because i always remains 1, the condition i <= 5 stays true forever. As a result, the loop never ends and repeatedly prints 1. Adding i++; increases the value of i after each iteration, allowing the loop to eventually stop after printing numbers from 1 to 5.
+
+Q9.
+//Required output 1 2 3 4 5
+#include <stdio.h>
+void printNum() {
+    int i;
+    for(i = 1; i < 5; i++) {
+        printf("%d ", i);
+    }
+}
+int main() {
+    printNum();
+    return 0;
+}
+
+A)i <= 5
+B)i >= 5
+C)i == 5
+D)i != 5
+
+Answer A
+The loop starts with i = 1 and continues while the condition i < 5 is true. This means the loop prints only 1 2 3 4 because when i becomes 5, the condition becomes false and the loop stops. However, the required output also includes 5. Changing the condition to i <= 5 allows the loop to run until i reaches 5, so the program correctly prints 1 2 3 4 5.
+
+Q10.
+//Required Output 15
+#include <stdio.h>
+void add() {
+    int a = 5, b = 10;
+}
+int main() {
+    printf("%d", a + b);
+    return 0;
+}
+
+A)Move int a = 5, b = 10; inside main()
+B)Replace printf with scanf
+C)Use float instead of int
+D)Remove the function add()
+
+Answer A
+Variables declared inside a function are called local variables and can only be used within that function. In the given program, a and b are declared inside add(), so they are not accessible inside main(). When printf("%d", a + b); tries to use them, the compiler gives an error because a and b are unknown in main(). Moving the variable declarations into main() makes them accessible where they are needed, allowing the program to correctly print 15.

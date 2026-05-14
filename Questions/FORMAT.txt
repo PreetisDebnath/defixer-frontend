@@ -1,0 +1,44 @@
+MCQ FORMAT
+
+
+{
+    "id":1,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"",
+    "code":"",
+    "options":[
+        {
+            "option_id":"A",
+            "option":""
+        },
+        {
+            "option_id":"B",
+            "option":""
+        },
+        {
+            "option_id":"C",
+            "option":""
+        },
+        {
+            "option_id":"D",
+            "option":""
+        }
+    ],
+    "answer":"",
+    "explanation":""
+}
+
+INPUT FORMAT
+
+{
+    "id":2,
+    "type":"INPUT",
+    "language":"C",
+    "difficulty":"Easy",
+    "question": ,
+    "code": ,
+    "answer":"",
+    "explanation":""
+}
