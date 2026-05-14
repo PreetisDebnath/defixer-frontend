@@ -1,3 +1,5 @@
+<!-- practice.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,72 +55,72 @@
 
 <body class="practice-page">
 
-    <!-- ADVANCED LOADER -->
+  <!-- ADVANCED LOADER -->
 
-<div
-  class="dashboard-loader"
-  id="dashboardLoader"
->
+  <div
+    class="dashboard-loader"
+    id="dashboardLoader"
+  >
 
-  <!-- GRID -->
+    <!-- GRID -->
 
-  <div class="loader-grid"></div>
+    <div class="loader-grid"></div>
 
-  <!-- PARTICLES -->
+    <!-- PARTICLES -->
 
-  <div class="loader-particles">
+    <div class="loader-particles">
 
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
 
-  </div>
+    </div>
 
-  <!-- CENTER -->
+    <!-- CENTER -->
 
-  <div class="loader-center">
+    <div class="loader-center">
 
-    <div class="loader-ring outer-ring"></div>
+      <div class="loader-ring outer-ring"></div>
 
-    <div class="loader-ring middle-ring"></div>
+      <div class="loader-ring middle-ring"></div>
 
-    <div class="loader-core">
+      <div class="loader-core">
 
-      <div class="core-glow"></div>
+        <div class="core-glow"></div>
 
-      <img
-        src="../assets/login-illustration.png"
-        alt="Debug Arena"
-      >
+        <img
+          src="../assets/login-illustration.png"
+          alt="Debug Arena"
+        >
+
+      </div>
+
+    </div>
+
+    <!-- TEXT -->
+
+    <div class="loader-text-wrapper">
+
+      <h1 class="loader-title">
+        DEBUG <span>ARENA</span>
+      </h1>
+
+      <p class="loader-subtitle">
+        Initializing Engine...
+      </p>
+
+      <div class="loader-progress">
+
+        <div class="loader-progress-fill"></div>
+
+      </div>
 
     </div>
 
   </div>
-
-  <!-- TEXT -->
-
-  <div class="loader-text-wrapper">
-
-    <h1 class="loader-title">
-      DEBUG <span>ARENA</span>
-    </h1>
-
-    <p class="loader-subtitle">
-      Initializing Engine...
-    </p>
-
-    <div class="loader-progress">
-
-      <div class="loader-progress-fill"></div>
-
-    </div>
-
-  </div>
-
-</div>
 
   <!-- BACKGROUND GLOW -->
 
@@ -231,6 +233,58 @@
 
             </div>
 
+            <!-- QUESTION TYPE -->
+
+            <div class="select-box">
+
+              <label for="question-type-filter">
+                Question Type
+              </label>
+
+              <div class="select-wrapper">
+
+                <select id="question-type-filter">
+
+                  <option value="All">
+                    All
+                  </option>
+
+                  <option value="mcq">
+                    MCQ
+                  </option>
+
+                  <option value="syntax">
+                    Syntax V2
+                  </option>
+
+                </select>
+
+                <i data-lucide="chevron-down"></i>
+
+              </div>
+
+            </div>
+
+            <!-- SHUFFLE MODE -->
+
+            <div class="shuffle-box">
+
+              <label for="shuffle-toggle">
+                Shuffle Mode
+              </label>
+
+              <button
+                class="shuffle-toggle"
+                id="shuffle-toggle"
+                type="button"
+              >
+
+                <span class="toggle-indicator"></span>
+
+              </button>
+
+            </div>
+
           </div>
 
         </div>
@@ -288,44 +342,6 @@
 
           </div>
 
-          <button
-            class="bookmark-btn"
-            type="button"
-          >
-
-            <i data-lucide="bookmark"></i>
-
-            Bookmark
-
-          </button>
-
-        </div>
-
-        <!-- TAGS -->
-
-        <div class="question-tags">
-
-          <div
-            class="tag cyan"
-            id="question-language"
-          >
-            C
-          </div>
-
-          <div
-            class="tag green"
-            id="question-difficulty"
-          >
-            Easy
-          </div>
-
-          <div
-            class="tag orange"
-            id="question-topic"
-          >
-            Loops
-          </div>
-
         </div>
 
         <!-- CODE BLOCK -->
@@ -336,9 +352,12 @@
 
         </div>
 
-        <!-- OPTIONS -->
+        <!-- MCQ SECTION -->
 
-        <div class="options-section">
+        <div
+          class="options-section"
+          id="mcq-section"
+        >
 
           <p class="option-heading">
             Select the most appropriate answer.
@@ -350,6 +369,28 @@
           >
 
           </div>
+
+        </div>
+
+        <!-- SYNTAX MODE -->
+
+        <div
+          class="syntax-section hidden"
+          id="syntax-section"
+        >
+
+          <p class="option-heading">
+            Type the corrected syntax/code below.
+          </p>
+
+          <textarea
+  id="syntax-answer"
+  class="syntax-answer-box"
+  placeholder="Write your corrected syntax here..."
+  spellcheck="false"
+  autocorrect="off"
+  autocapitalize="off"
+></textarea>
 
         </div>
 
@@ -439,9 +480,9 @@
         </div>
 
         <div
-  class="progress-circle"
-  id="progress-circle"
->
+          class="progress-circle"
+          id="progress-circle"
+        >
 
           <div class="progress-inner">
 
@@ -503,38 +544,6 @@
             </strong>
 
           </div>
-
-        </div>
-
-      </section>
-
-      <!-- STREAK -->
-
-      <section class="sidebar-card streak-card">
-
-        <div class="card-header">
-
-          <h3>
-            Current Streak
-          </h3>
-
-          <i data-lucide="flame"></i>
-
-        </div>
-
-        <div class="streak-box">
-
-          <div class="fire-circle">
-            🔥
-          </div>
-
-          <h2>
-            7 Days
-          </h2>
-
-          <p>
-            Keep solving daily
-          </p>
 
         </div>
 

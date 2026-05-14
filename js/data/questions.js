@@ -1,6 +1,8 @@
-// questions.js
-
 export const questions = [
+
+  /* =========================
+     MCQ QUESTIONS
+  ========================= */
 
   {
     id: 1,
@@ -263,10 +265,14 @@ int main() {
     xp: 20
   },
 
+  /* =========================
+     SYNTAX QUESTIONS
+  ========================= */
+
   {
     id: 6,
 
-    type: "mcq",
+    type: "syntax",
 
     language: "C",
 
@@ -275,7 +281,7 @@ int main() {
     topic: "Syntax",
 
     question:
-      "Find the syntax error in the following code.",
+      "Fix the missing semicolon error.",
 
     code:
 `#include <stdio.h>
@@ -288,26 +294,24 @@ int main() {
 
 }`,
 
-    options: [
+    validation: {
 
-      "Missing semicolon after printf",
+  type: "includes",
 
-      "Missing header file",
+  acceptedAnswers: [
 
-      "Invalid return statement",
+    `printf("Hello World");`,
 
-      "Missing main function"
+    `printf( "Hello World" );`
 
-    ],
-
-    correctAnswer:
-      "Missing semicolon after printf",
+  ]
+},
 
     explanation:
       "Every statement in C must end with a semicolon.",
 
     hint:
-      "Check the end of the printf statement.",
+      "Check the printf statement carefully.",
 
     xp: 10
   },
@@ -315,99 +319,743 @@ int main() {
   {
     id: 7,
 
-    type: "mcq",
+    type: "syntax",
 
     language: "C",
 
-    difficulty: "Medium",
+    difficulty: "Easy",
 
-    topic: "Pointers",
+    topic: "Conditions",
 
     question:
-      "What is wrong with this pointer declaration?",
+      "Correct the comparison operator in the if condition.",
 
     code:
 `#include <stdio.h>
 
 int main() {
 
-    int *ptr = NULL;
+    int x = 5;
 
-    printf("%d", *ptr);
+    if(x = 10){
+
+        printf("Equal");
+
+    }
 
 }`,
 
-    options: [
+    validation: {
 
-      "Dereferencing NULL pointer",
+  type: "includes",
 
-      "Pointer declaration invalid",
+  acceptedAnswers: [
 
-      "Printf syntax wrong",
+    `if(x == 10)`,
 
-      "NULL keyword invalid"
+    `if (x == 10)`
 
-    ],
-
-    correctAnswer:
-      "Dereferencing NULL pointer",
+  ]
+},
 
     explanation:
-      "NULL pointers do not point to valid memory locations.",
+      "Use '==' for comparison inside conditions.",
 
     hint:
-      "Think about what NULL means in memory.",
+      "Assignment and comparison operators are different.",
 
-    xp: 15
+    xp: 10
   },
 
   {
     id: 8,
 
-    type: "mcq",
+    type: "syntax",
+
+    language: "C",
+
+    difficulty: "Medium",
+
+    topic: "Loops",
+
+    question:
+      "Fix the loop syntax.",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int i;
+
+    for(i = 0 i < 5; i++) {
+
+        printf("%d", i);
+
+    }
+
+}`,
+
+    validation: {
+
+  type: "regex",
+
+  pattern:
+  `for\\s*\\(\\s*i\\s*=\\s*0\\s*;\\s*i\\s*<\\s*5\\s*;\\s*i\\+\\+\\s*\\)`
+
+},
+
+    explanation:
+      "The for loop requires semicolons between expressions.",
+
+    hint:
+      "Look at the separators inside the loop.",
+
+    xp: 15
+  },
+
+  {
+    id: 9,
+
+    type: "syntax",
+
+    language: "C",
+
+    difficulty: "Medium",
+
+    topic: "Functions",
+
+    question:
+      "Fix the function return statement.",
+
+    code:
+`#include <stdio.h>
+
+int add(int a, int b){
+
+    int sum = a + b;
+
+}
+
+`,
+
+    validation: {
+
+  type: "tokens",
+
+  requiredTokens: [
+
+    "return",
+
+    "sum",
+
+    ";"
+
+  ]
+},
+
+    explanation:
+      "Functions with int return type must return a value.",
+
+    hint:
+      "The function calculates sum but never returns it.",
+
+    xp: 15
+  },
+
+  {
+    id: 10,
+
+    type: "syntax",
 
     language: "C",
 
     difficulty: "Hard",
 
-    topic: "Memory",
+    topic: "Pointers",
 
     question:
-      "Identify the memory-related issue.",
+      "Fix the pointer initialization.",
 
     code:
-`#include <stdlib.h>
+`#include <stdio.h>
 
 int main() {
 
-    int *arr = malloc(5 * sizeof(int));
+    int *ptr;
 
-    arr[10] = 5;
+    *ptr = 10;
+
+}`,
+
+    validation: {
+
+  type: "includes",
+
+  acceptedAnswers: [
+
+`int value = 10;
+int *ptr = &value;`,
+
+`int value=10;
+int* ptr=&value;`
+
+  ]
+},
+
+    explanation:
+      "Pointers must point to valid memory before dereferencing.",
+
+    hint:
+      "The pointer currently points nowhere.",
+
+    xp: 20
+  } ,
+
+  /* =========================
+   ADD THESE BELOW ID: 10
+   AND ABOVE THE FINAL ];
+========================= */
+
+  {
+    id: 11,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Variables",
+
+    question:
+      "What will be the output of the following code snippet in C?",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int a = 10;
+
+    printf("%d", a);
+
+    return 0;
 
 }`,
 
     options: [
 
-      "Out-of-bounds memory access",
+      "a",
 
-      "malloc syntax invalid",
+      "10",
 
-      "Array declaration missing",
+      "%d",
 
-      "Missing printf statement"
+      "Error"
 
     ],
 
     correctAnswer:
-      "Out-of-bounds memory access",
+      "10",
 
     explanation:
-      "The allocated array only has space for 5 integers.",
+      "printf replaces %d with the integer value stored in variable a.",
 
     hint:
-      "Check how much memory was allocated.",
+      "Focus on the value stored in variable a.",
 
-    xp: 20
+    xp: 10
+  },
+
+  {
+    id: 12,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Data Types",
+
+    question:
+      "Required Output - 5.7",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int a = 5.7;
+
+    printf("%f", a);
+
+    return 0;
+
+}`,
+
+    options: [
+
+      `float a = 5.7;
+printf("%f", a);`,
+
+      `char a = 5.7;
+printf("%c", a);`,
+
+      `int a = 5.7;
+printf("%d", a);`,
+
+      `double a = 5.7;
+printf("%d", a);`
+
+    ],
+
+    correctAnswer:
+`float a = 5.7;
+printf("%f", a);`,
+
+    explanation:
+      "float data type stores decimal values correctly and %f prints floating-point numbers.",
+
+    hint:
+      "Think about which datatype supports decimal numbers.",
+
+    xp: 10
+  },
+
+  {
+    id: 13,
+
+    type: "syntax",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Syntax",
+
+    question:
+      "Fix the missing semicolon in the declaration.",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int a = 10
+
+    printf("%d", a);
+
+    return 0;
+
+}`,
+
+    validation: {
+
+  type: "includes",
+
+  acceptedAnswers: [
+
+    `int a = 10;`,
+
+    `int a=10;`
+
+  ]
+},
+
+    explanation:
+      "Every statement in C must end with a semicolon.",
+
+    hint:
+      "Look at the variable declaration carefully.",
+
+    xp: 10
+  },
+
+  {
+    id: 14,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Operators",
+
+    question:
+      "Required output - 10",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int a = 5, b = 2;
+
+    printf("%d", a ^ b);
+
+    return 0;
+
+}`,
+
+    options: [
+
+      "%",
+
+      "*",
+
+      "/",
+
+      "+"
+
+    ],
+
+    correctAnswer:
+      "*",
+
+    explanation:
+      "The ^ operator performs bitwise XOR, not multiplication. Use * for multiplication.",
+
+    hint:
+      "Which operator performs multiplication in C?",
+
+    xp: 10
+  },
+
+  {
+    id: 15,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Conditions",
+
+    question:
+      "Required output - Eligible for voting",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int age = 20;
+
+    if(age < 18)
+
+        printf("Eligible for voting");
+
+    else
+
+        printf("Not eligible for voting");
+
+    return 0;
+
+}`,
+
+    options: [
+
+      "if(age > 18)",
+
+      "if(age >= 18)",
+
+      "if(age == 18)",
+
+      "if(age <= 18)"
+
+    ],
+
+    correctAnswer:
+      "if(age >= 18)",
+
+    explanation:
+      "Voting eligibility requires age to be 18 or greater.",
+
+    hint:
+      "Check the correct voting age condition.",
+
+    xp: 10
+  },
+
+  {
+    id: 16,
+
+    type: "syntax",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Conditions",
+
+    question:
+      "What will be the output of the following code snippet in C?",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int x = 5;
+
+    if(x > 2)
+
+        if(x > 10)
+
+            printf("A");
+
+        else
+
+            printf("B");
+
+    return 0;
+
+}`,
+
+    validation: {
+
+  type: "includes",
+
+  acceptedAnswers: [
+
+    `B`,
+
+    `printf("B");`
+
+  ]
+},
+
+    explanation:
+      "x > 2 is true, but x > 10 is false. Therefore the else block executes and prints B.",
+
+    hint:
+      "Trace both if conditions carefully.",
+
+    xp: 10
+  },
+
+  {
+    id: 17,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Loops",
+
+    question:
+      "Required output - 1 2 3 4 5",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int i;
+
+    for(i = 1; i >= 5; i++)
+
+        printf("%d ", i);
+
+    return 0;
+
+}`,
+
+    options: [
+
+      "i <= 5",
+
+      "i == 5",
+
+      "i != 5",
+
+      "i < 1"
+
+    ],
+
+    correctAnswer:
+      "i <= 5",
+
+    explanation:
+      "The loop condition must allow values from 1 through 5.",
+
+    hint:
+      "Check the loop stopping condition.",
+
+    xp: 10
+  },
+
+  {
+    id: 18,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "While Loop",
+
+    question:
+      "What will be the output of the following code snippet in C?",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int i = 1;
+
+    while(i <= 5) {
+
+        printf("%d ", i);
+
+    }
+
+    return 0;
+
+}`,
+
+    options: [
+
+      "1 2 3 4 5",
+
+      "1",
+
+      "Infinite loop",
+
+      "No output"
+
+    ],
+
+    correctAnswer:
+      "Infinite loop",
+
+    explanation:
+      "The value of i never changes, so the condition always remains true.",
+
+    hint:
+      "Look for the update of variable i.",
+
+    xp: 10
+  },
+
+  {
+    id: 19,
+
+    type: "syntax",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Loops",
+
+    question:
+      "Predict the output of the loop.",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int i;
+
+    for(i = 1; i <= 3; i++) {
+
+        printf("*");
+
+    }
+
+    return 0;
+
+}`,
+
+    validation: {
+
+  type: "includes",
+
+  acceptedAnswers: [
+
+    `***`
+
+  ]
+},
+
+    explanation:
+      "The loop executes three times and prints one * during each iteration.",
+
+    hint:
+      "Count how many times the loop runs.",
+
+    xp: 10
+  },
+
+  {
+    id: 20,
+
+    type: "mcq",
+
+    language: "C",
+
+    difficulty: "Easy",
+
+    topic: "Nested Loops",
+
+    question:
+      "Required Output - 3 stars in each row",
+
+    code:
+`#include <stdio.h>
+
+int main() {
+
+    int i, j;
+
+    for(i = 1; i <= 3; i++) {
+
+        for(j = 1; j <= 2; j++) {
+
+            printf("*");
+
+        }
+
+        printf("\\n");
+
+    }
+
+    return 0;
+
+}`,
+
+    options: [
+
+      "for(j = 1; j <= 3; j++)",
+
+      "for(i = 1; i <= 2; i++)",
+
+      "printf(\"**\");",
+
+      "for(j = 1; j >= 3; j++)"
+
+    ],
+
+    correctAnswer:
+      "for(j = 1; j <= 3; j++)",
+
+    explanation:
+      "The inner loop controls the number of stars printed in each row.",
+
+    hint:
+      "Focus on the inner loop count.",
+
+    xp: 15
   }
 
 ];

@@ -1,4 +1,4 @@
-// practice.js
+/* practice.js */
 
 import { questions }
 from "./data/questions.js";
@@ -29,6 +29,8 @@ let attemptedQuestions = 0;
 
 let totalXP = 0;
 
+let shuffleMode = false;
+
 /* =========================
    DOM ELEMENTS
 ========================= */
@@ -38,15 +40,6 @@ document.getElementById("question-count");
 
 const questionTitle =
 document.getElementById("question-title");
-
-const questionLanguage =
-document.getElementById("question-language");
-
-const questionDifficulty =
-document.getElementById("question-difficulty");
-
-const questionTopic =
-document.getElementById("question-topic");
 
 const questionCode =
 document.getElementById("question-code");
@@ -68,6 +61,17 @@ document.getElementById("explanation-box");
 
 const explanationText =
 document.getElementById("explanation-text");
+
+/* MCQ + SYNTAX */
+
+const mcqSection =
+document.getElementById("mcq-section");
+
+const syntaxSection =
+document.getElementById("syntax-section");
+
+const syntaxAnswer =
+document.getElementById("syntax-answer");
 
 /* SIDEBAR */
 
@@ -122,12 +126,53 @@ document.getElementById("language-filter");
 const difficultyFilter =
 document.getElementById("difficulty-filter");
 
+const questionTypeFilter =
+document.getElementById(
+  "question-type-filter"
+);
+
+const shuffleToggle =
+document.getElementById(
+  "shuffle-toggle"
+);
+
 /* LOADER */
 
 const dashboardLoader =
 document.getElementById(
   "dashboardLoader"
 );
+
+/* =========================
+   SHUFFLE ARRAY
+========================= */
+
+function shuffleArray(array){
+
+  const shuffled = [...array];
+
+  for(
+    let i = shuffled.length - 1;
+    i > 0;
+    i--
+  ){
+
+    const j =
+    Math.floor(
+      Math.random() * (i + 1)
+    );
+
+    [
+      shuffled[i],
+      shuffled[j]
+    ] = [
+      shuffled[j],
+      shuffled[i]
+    ];
+  }
+
+  return shuffled;
+}
 
 /* =========================
    FILTER QUESTIONS
@@ -141,6 +186,9 @@ function filterQuestions() {
   const selectedDifficulty =
   difficultyFilter.value;
 
+  const selectedType =
+  questionTypeFilter.value;
+
   filteredQuestions =
   questions.filter(question => {
 
@@ -152,18 +200,31 @@ function filterQuestions() {
     selectedDifficulty === "All" ||
     question.difficulty === selectedDifficulty;
 
+    const typeMatch =
+    selectedType === "All" ||
+    question.type === selectedType;
+
     return (
       languageMatch &&
-      difficultyMatch
+      difficultyMatch &&
+      typeMatch
     );
 
   });
 
+  if(shuffleMode){
+
+    filteredQuestions =
+    shuffleArray(filteredQuestions);
+  }
+
   resetQuiz(false);
+
+  renderQuestion();
 }
 
 /* =========================
-   RENDER EMPTY STATE
+   EMPTY STATE
 ========================= */
 
 function renderEmptyState() {
@@ -173,15 +234,6 @@ function renderEmptyState() {
 
   questionTitle.textContent =
   "No matching questions found.";
-
-  questionLanguage.textContent =
-  "-";
-
-  questionDifficulty.textContent =
-  "-";
-
-  questionTopic.textContent =
-  "-";
 
   questionCode.textContent =
   "";
@@ -195,6 +247,14 @@ function renderEmptyState() {
     </div>
 
   `;
+
+  syntaxSection.classList.add(
+    "hidden"
+  );
+
+  mcqSection.classList.remove(
+    "hidden"
+  );
 
   explanationBox.classList.add(
     "hidden"
@@ -227,6 +287,8 @@ function renderQuestion() {
 
   selectedOption = null;
 
+  syntaxAnswer.value = "";
+
   submitBtn.disabled = false;
 
   nextBtn.disabled = false;
@@ -245,87 +307,103 @@ function renderQuestion() {
   questionTitle.textContent =
   currentQuestion.question;
 
-  questionLanguage.textContent =
-  currentQuestion.language;
-
-  questionDifficulty.textContent =
-  currentQuestion.difficulty;
-
-  questionTopic.textContent =
-  currentQuestion.topic;
-
   /* CODE */
 
   questionCode.textContent =
   currentQuestion.code;
 
-  /* OPTIONS */
+  /* TYPE RENDERING */
+
+  if(currentQuestion.type === "syntax"){
+
+    mcqSection.classList.add(
+      "hidden"
+    );
+
+    syntaxSection.classList.remove(
+      "hidden"
+    );
+
+  } else {
+
+    syntaxSection.classList.add(
+      "hidden"
+    );
+
+    mcqSection.classList.remove(
+      "hidden"
+    );
+  }
+
+  /* MCQ OPTIONS */
 
   optionsContainer.innerHTML = "";
 
-  currentQuestion.options.forEach(
-    (option, index) => {
+  if(currentQuestion.type === "mcq"){
 
-      const button =
-      document.createElement("button");
+    currentQuestion.options.forEach(
+      (option, index) => {
 
-      button.type = "button";
+        const button =
+        document.createElement("button");
 
-      button.classList.add(
-        "option-card"
-      );
+        button.type = "button";
 
-      button.innerHTML = `
+        button.classList.add(
+          "option-card"
+        );
 
-        <div class="option-left">
+        button.innerHTML = `
 
-          <div class="option-radio"></div>
+          <div class="option-left">
 
-          <span class="option-letter">
+            <div class="option-radio"></div>
 
-            ${String.fromCharCode(65 + index)}
+            <span class="option-letter">
 
-          </span>
+              ${String.fromCharCode(65 + index)}
 
-        </div>
+            </span>
 
-        <p>${option}</p>
+          </div>
 
-      `;
+          <p>${option}</p>
 
-      /* SELECT OPTION */
+        `;
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          if(submitBtn.disabled) return;
+            if(submitBtn.disabled)
+            return;
 
-          document
-            .querySelectorAll(".option-card")
-            .forEach(card => {
+            document
+              .querySelectorAll(".option-card")
+              .forEach(card => {
 
-              card.classList.remove(
-                "active"
-              );
+                card.classList.remove(
+                  "active"
+                );
 
-            });
+              });
 
-          button.classList.add(
-            "active"
-          );
+            button.classList.add(
+              "active"
+            );
 
-          selectedOption = option;
+            selectedOption = option;
 
-        }
-      );
+          }
+        );
 
-      optionsContainer.appendChild(
-        button
-      );
+        optionsContainer.appendChild(
+          button
+        );
 
-    }
-  );
+      }
+    );
+  }
 
 }
 
@@ -343,8 +421,6 @@ function updateStats() {
 
   wrongCount.textContent =
   wrongAnswers;
-
-  /* ACCURACY */
 
   let accuracy = 0;
 
@@ -369,20 +445,14 @@ conic-gradient(
 )
 `;
 
-  /* XP */
-
   xpValue.textContent =
   `⭐ ${totalXP} XP`;
-
-  /* LEVEL */
 
   const level =
   Math.floor(totalXP / 50) + 1;
 
   levelText.textContent =
   `Level ${level}`;
-
-  /* XP BAR */
 
   const xpProgress =
   totalXP % 50;
@@ -411,81 +481,192 @@ function showHint() {
 
 function submitAnswer() {
 
-  if(!selectedOption){
-
-    alert(
-      "Please select an option first."
-    );
-
-    return;
-  }
-
   const currentQuestion =
   filteredQuestions[currentQuestionIndex];
 
-  const optionCards =
-  document.querySelectorAll(
-    ".option-card"
-  );
-
   attemptedQuestions++;
 
-  optionCards.forEach(card => {
+  /* =====================
+     MCQ MODE
+  ===================== */
 
-    card.classList.add(
-      "disabled"
+  if(currentQuestion.type === "mcq"){
+
+    if(!selectedOption){
+
+      alert(
+        "Please select an option first."
+      );
+
+      attemptedQuestions--;
+
+      return;
+    }
+
+    const optionCards =
+    document.querySelectorAll(
+      ".option-card"
     );
 
-    const optionText =
-    card.querySelector("p")
-    .textContent;
+    optionCards.forEach(card => {
 
-    /* CORRECT */
+      card.classList.add(
+        "disabled"
+      );
+
+      const optionText =
+      card.querySelector("p")
+      .textContent;
+
+      if(
+        optionText ===
+        currentQuestion.correctAnswer
+      ){
+
+        card.classList.add(
+          "correct"
+        );
+
+      }
+
+      if(
+        optionText === selectedOption &&
+        selectedOption !==
+        currentQuestion.correctAnswer
+      ){
+
+        card.classList.add(
+          "wrong"
+        );
+
+      }
+
+    });
 
     if(
-      optionText ===
+      selectedOption ===
       currentQuestion.correctAnswer
     ){
 
-      card.classList.add(
-        "correct"
-      );
+      correctAnswers++;
 
+      score++;
+
+      totalXP +=
+      currentQuestion.xp;
+
+    } else {
+
+      wrongAnswers++;
     }
 
-    /* WRONG */
+  }
 
-    if(
-      optionText === selectedOption &&
-      selectedOption !==
-      currentQuestion.correctAnswer
-    ){
+  /* =====================
+     SYNTAX MODE
+  ===================== */
 
-      card.classList.add(
-        "wrong"
+  if(currentQuestion.type === "syntax"){
+
+    const userAnswer =
+    syntaxAnswer.value.trim();
+
+    if(userAnswer === ""){
+
+      alert(
+        "Please write your answer first."
       );
 
+      attemptedQuestions--;
+
+      return;
     }
 
-  });
+    const normalizedUser =
+    userAnswer.replace(/\s+/g,"");
 
-  /* SCORE */
+    let isCorrect = false;
 
-  if(
-    selectedOption ===
-    currentQuestion.correctAnswer
-  ){
+    const validation =
+    currentQuestion.validation;
 
-    correctAnswers++;
+    syntaxAnswer.disabled = true;
 
-    score++;
+    /* =====================
+       INCLUDES VALIDATION
+    ===================== */
 
-    totalXP +=
-    currentQuestion.xp;
+    if(validation.type === "includes"){
 
-  } else {
+      isCorrect =
+      validation.acceptedAnswers.some(
+        answer => {
 
-    wrongAnswers++;
+          const normalizedAnswer =
+          answer.replace(/\s+/g,"");
+
+          return normalizedUser.includes(
+            normalizedAnswer
+          );
+
+        }
+      );
+    }
+
+    /* =====================
+       REGEX VALIDATION
+    ===================== */
+
+    if(validation.type === "regex"){
+
+      const regex =
+      new RegExp(validation.pattern);
+
+      isCorrect =
+      regex.test(userAnswer);
+    }
+
+    /* =====================
+       TOKEN VALIDATION
+    ===================== */
+
+    if(validation.type === "tokens"){
+
+      isCorrect =
+      validation.requiredTokens.every(
+        token => {
+
+          return normalizedUser.includes(
+            token.replace(/\s+/g,"")
+          );
+
+        }
+      );
+    }
+
+    /* =====================
+       RESULT
+    ===================== */
+
+    if(isCorrect){
+
+      correctAnswers++;
+
+      score++;
+
+      totalXP +=
+      currentQuestion.xp;
+
+      syntaxAnswer.style.borderColor =
+      "#22C55E";
+
+    } else {
+
+      wrongAnswers++;
+
+      syntaxAnswer.style.borderColor =
+      "#EF4444";
+    }
 
   }
 
@@ -504,7 +685,7 @@ function submitAnswer() {
 }
 
 /* =========================
-   SHOW RESULT MODAL
+   RESULT MODAL
 ========================= */
 
 function showResultModal() {
@@ -555,6 +736,11 @@ function resetQuiz(render = true) {
 
   totalXP = 0;
 
+  syntaxAnswer.disabled = false;
+
+  syntaxAnswer.style.borderColor =
+  "rgba(34,211,238,0.10)";
+
   updateStats();
 
   resultModal.classList.add(
@@ -585,7 +771,10 @@ function nextQuestion() {
 
   currentQuestionIndex++;
 
-  /* END */
+  syntaxAnswer.disabled = false;
+
+  syntaxAnswer.style.borderColor =
+  "rgba(34,211,238,0.10)";
 
   if(
     currentQuestionIndex >=
@@ -599,6 +788,25 @@ function nextQuestion() {
 
   renderQuestion();
 }
+
+/* =========================
+   SHUFFLE TOGGLE
+========================= */
+
+shuffleToggle.addEventListener(
+  "click",
+  () => {
+
+    shuffleMode = !shuffleMode;
+
+    shuffleToggle.classList.toggle(
+      "active"
+    );
+
+    filterQuestions();
+
+  }
+);
 
 /* =========================
    EVENTS
@@ -638,6 +846,11 @@ difficultyFilter.addEventListener(
   filterQuestions
 );
 
+questionTypeFilter.addEventListener(
+  "change",
+  filterQuestions
+);
+
 /* =========================
    INITIAL LOAD
 ========================= */
@@ -659,13 +872,29 @@ window.addEventListener(
         dashboardLoader.classList.add(
           "hidden"
         );
+      }
 
-        setTimeout(()=>{
+      const practiceLayout =
+      document.querySelector(
+        ".practice-layout"
+      );
+
+      if(practiceLayout){
+
+        practiceLayout.classList.add(
+          "loaded"
+        );
+      }
+
+      setTimeout(()=>{
+
+        if(dashboardLoader){
 
           dashboardLoader.remove();
 
-        }, 600);
-      }
+        }
+
+      }, 600);
 
     }, 900);
 
