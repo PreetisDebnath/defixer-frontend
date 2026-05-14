@@ -1,0 +1,256 @@
+[
+    {
+        "id":1,
+        "type":"MCQ",
+        "language":"C",
+        "difficulty":"Easy",
+        "question":"What will be the output of the following code snippet in C?",
+        "code":"#include <stdio.h>\n int main() {\n int a = 10;\n printf(\"%d\", a);\n return 0;\n }",
+        "options":[
+            {
+                "option_id":"A",
+                "option":"a"
+            },
+            {
+                "option_id":"B",
+                "option":"10"
+            },
+            {
+                "option_id":"C",
+                "option":"%d"
+            },
+            {
+                "option_id":"D",
+                "option":"Error"
+            }
+        ],
+        "answer":"B",
+        "explanation":"printf(\"%d\", a);`prints the value stored in the variable`a`. Here, `a`is an integer variable with value`10`. The format specifier `%d`is specifically used in C to display integer values. When the program runs,`printf()`replaces`%d`with the actual value of`a`, so the output becomes `10`."
+    },
+
+{
+    "id":2,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"Required Output - 5.7",
+    "code":"#include <stdio.h>\n int main() {\n int a = 5.7;\n printf(\"%f\", a);\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"float a = 5.7;\n printf(\"%f\", a);"
+        },
+        {
+            "option_id":"B",
+            "option":"char a = 5.7;\n printf(\"%c\", a);"
+        },
+        {
+            "option_id":"C",
+            "option":"int a = 5.7;\n printf(\"%d\", a);"
+        },
+        {
+            "option_id":"D",
+            "option":"double a = 5.7;\n printf(\"%d\", a);"
+        }
+    ],
+    "answer":"C",
+    "explanation":"int data type can store only whole numbers, so when 5.7 is assigned to an int variable, the decimal part is removed automatically and the value becomes 5. Also, %f is used for floating-point values, not integers, causing a type mismatch. Using float a = 5.7; and %f correctly stores and prints the decimal number."
+    },
+
+{   
+    "id":3,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"Required Output - 10",
+    "code":"#include <stdio.h>\n int main() {\n int a = 10\n printf(\"%d\", a);\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"int a = 10;"
+        },
+        {
+            "option_id":"B",
+            "option":"int a == 10;"
+        },
+        {
+            "option_id":"C",
+            "option":"int a := 10;"
+        },
+        {
+            "option_id":"D",
+            "option":"int a = \"10\";"
+        }
+    ],
+    "answer":"A",
+    "explanation":"In C, every statement must end with a semicolon ;. The line int a = 10 is missing a semicolon, so the compiler cannot recognize where the statement ends. This causes a syntax error during compilation. Adding ; fixes the problem."
+},
+
+{
+    "id":4,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"Required output - 10",
+    "code":"#include <stdio.h>\n int main() {\n int a = 5, b = 2;\n printf(\"%d\", a ^ b);\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"%"
+        },
+        {
+            "option_id":"B",
+            "option":"*"
+        },
+        {
+            "option_id":"C",
+            "option":"/"
+        },
+        {
+            "option_id":"D",
+            "option":"+"
+        }
+    ],
+    "answer":"B",
+    "explanation":"The operator ^ in C is not used for multiplication; it is the bitwise XOR operator. If the programmer wants to multiply two numbers, the correct operator is *. Using ^ gives a completely different result because it performs bit-level operations instead of arithmetic multiplication."
+},
+
+{
+    "id":5,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"Required output - \"Eligible for voting\"",
+    "code":"#include <stdio.h>\n int main() {\n int age = 20;\n if(age < 18)\n printf(\"Eligible for voting\");\n else\n printf(\"Not eligible for voting\");\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"if(age > 18)"
+        },
+        {
+            "option_id":"B",
+            "option":"if(age >= 18)"
+        },
+        {
+            "option_id":"C",
+            "option":"if(age == 18)"
+        },
+        {
+            "option_id":"D",
+            "option":"if(age <= 18)"
+        }
+    ],
+    "answer":"B",
+    "explanation":"The required output is \"Eligible for voting\" and the age is 20. The condition age < 18 is incorrect because it checks for people younger than 18. Voting eligibility requires age to be 18 or more, so the correct condition is age >= 18."
+},
+
+{
+    "id":6,
+    "type":"INPUT",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"What will be the output of the following code snippet in C?",
+    "code":"#include <stdio.h>\n int main() {\n int x = 5;\n if(x > 2)\n if(x > 10)\n printf(\"A\");\n else\n printf(\"B\");\n return 0;\n }",
+    "answer":"B",
+    "explanation":"First, the condition x > 2 is true because 5 > 2. Then the inner condition x > 10 is checked, which is false because 5 is not greater than 10. Therefore, the else block executes and prints \"B\"."
+},
+
+{
+    "id":7,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"Required output - \"1 2 3 4 5\"",
+    "code":"#include <stdio.h>\n int main() {\n int i;\n for(i = 1; i >= 5; i++)\n printf(\"%d \", i);\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"i <= 5"
+        },
+        {
+            "option_id":"B",
+            "option":"i == 5"
+        },
+        {
+            "option_id":"C",
+            "option":"i != 5"
+        },
+        {
+            "option_id":"D",
+            "option":"i < 1"
+        }
+    ],
+    "answer":"A",
+    "explanation":"The loop starts from 1, but the condition i >= 5 is false immediately because 1 is not greater than or equal to 5. Therefore, the loop never executes. Changing the condition to i <= 5 allows the loop to run from 1 to 5."
+},
+
+{
+    "id":8,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"What will be the output of the following code snippet in C?",
+    "code":"#include <stdio.h>\n int main() {\n int i = 1;\n while(i <= 5) {\n printf(\"%d \", i);\n }\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"1 2 3 4 5"
+        },
+        {
+            "option_id":"B",
+            "option":"1"
+        },
+        {
+            "option_id":"C",
+            "option":"Infinite loop"
+        },
+        {
+            "option_id":"D",
+            "option":"No output"
+        }
+    ],
+    "answer":"C",
+    "explanation":"The condition i <= 5 always remains true because the value of i is never updated inside the loop. Since i stays equal to 1, the loop keeps running forever and repeatedly prints 1."
+},
+
+{
+    "id":9,
+    "type":"INPUT",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"What will be the output of the following code snippet in C?",
+    "code":"#include <stdio.h>\n int main() {\n int i;\n for(i = 1; i <= 3; i++) {\n printf(\"*\");\n }\n return 0;\n }",
+    "answer":" *** ",
+    "explanation":"The loop runs three times because i goes from 1 to 3. During each iteration, one * is printed. Therefore, the final output becomes ***."
+},
+
+{
+    "id":10,
+    "type":"MCQ",
+    "language":"C",
+    "difficulty":"Easy",
+    "question":"Required Output - \n *** \n ***\n ***",
+    "code":"#include <stdio.h>\n int main() {\n int i, j;\n for(i = 1; i <= 3; i++) {\n for(j = 1; j <= 2; j++) {\n printf(\"*\");\n }\n printf(\"\n\");\n }\n return 0;\n }",
+    "options":[
+        {
+            "option_id":"A",
+            "option":"for(j = 1; j <= 3; j++)"
+        },
+        {
+            "option_id":"B",
+            "option":"for(i = 1; i <= 2; i++)"
+        },
+        {
+            "option_id":"C",
+            "option":"printf(\"**\");"
+        },
+        {
+            "option_id":"D",
+            "option":"for(j = 1; j >= 3; j++)"
+        }
+    ],
+    "answer":"A",
+    "explanation":"The outer loop already runs 3 times, so the program correctly creates 3 rows. However, the inner loop runs only 2 times, printing only 2 stars in each row. To get the required output of 3 stars per row, the inner loop condition must be changed from j <= 2 to j <= 3."
+}
+
+]
