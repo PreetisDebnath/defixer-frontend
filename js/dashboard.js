@@ -68,6 +68,76 @@ const logoutBtn =
 const dropdownLogout =
     document.getElementById("dropdownLogout");
 
+const progressBtn =
+document.getElementById(
+    "progressBtn"
+);
+
+const progressModal =
+document.getElementById(
+    "progressModal"
+);
+
+const closeProgress =
+document.getElementById(
+    "closeProgress"
+);
+
+const modalLevel =
+document.getElementById(
+    "modalLevel"
+);
+
+const modalXP =
+document.getElementById(
+    "modalXP"
+);
+
+const modalSolved =
+document.getElementById(
+    "modalSolved"
+);
+
+const modalAccuracy =
+document.getElementById(
+    "modalAccuracy"
+);
+
+const modalXPFill =
+document.getElementById(
+    "modalXPFill"
+);
+
+const modalXPText =
+document.getElementById(
+    "modalXPText"
+);
+
+const renameBtn =
+document.getElementById(
+    "renameBtn"
+);
+
+const renameModal =
+document.getElementById(
+    "renameModal"
+);
+
+const renameInput =
+document.getElementById(
+    "renameInput"
+);
+
+const cancelRename =
+document.getElementById(
+    "cancelRename"
+);
+
+const saveRename =
+document.getElementById(
+    "saveRename"
+);
+
 /* STATS */
 
 const questionsSolved =
@@ -136,6 +206,62 @@ const navItems =
 const defaultAvatar =
     "../assets/icons/avatar.jpg";
 
+/* =========================
+   QUIZ STORAGE
+========================= */
+
+function getQuizStorageKey(uid){
+
+    return `debugArenaQuizState_${uid}`;
+}
+
+function loadQuizStats(uid){
+
+    const storageKey =
+        getQuizStorageKey(uid);
+
+    const savedState =
+        localStorage.getItem(
+            storageKey
+        );
+
+    if(!savedState){
+
+        return {
+
+            totalXP:0,
+
+            correctAnswers:0,
+
+            wrongAnswers:0,
+
+            attemptedQuestions:0
+        };
+    }
+
+    return JSON.parse(savedState);
+}
+
+function calculateAccuracy(
+    correct,
+    attempted
+){
+
+    if(attempted === 0){
+
+        return 0;
+    }
+
+    return Math.round(
+        (correct / attempted) * 100
+    );
+}
+
+function calculateLevel(xp){
+
+    return Math.floor(xp / 50) + 1;
+}
+
 /* AUTH PROTECTION */
 
 onAuthStateChanged(
@@ -183,9 +309,19 @@ async function initializeDashboard(
 
     loadProfile(user);
 
-    subscribeToRealtimeData(
-        user.uid
-    );
+    loadDashboardStats(
+    user.uid
+);
+
+window.addEventListener(
+    "storage",
+    ()=>{
+
+        loadDashboardStats(
+            user.uid
+        );
+    }
+);
 
     await Promise.all([
 
@@ -231,9 +367,15 @@ function showDashboard(){
 
 function loadProfile(user){
 
-    const displayName =
-        user.displayName ||
-        "Developer";
+    const customName =
+localStorage.getItem(
+    `defixerCustomName_${user.uid}`
+);
+
+const displayName =
+    customName ||
+    user.displayName ||
+    "Developer";
 
     const email =
         user.email ||
@@ -261,19 +403,61 @@ function loadProfile(user){
 
 /* REALTIME USER DATA */
 
-function subscribeToRealtimeData(
-    uid
-){
+// function subscribeToRealtimeData(
+//     uid
+// ){
 
-    subscribeToUserData(
-        uid,
-        (data)=>{
+//     subscribeToUserData(
+//         uid,
+//         (data)=>{
 
-            renderStats(data);
+//             renderStats(data);
 
-            renderXP(data);
-        }
-    );
+//             renderXP(data);
+//         }
+//     );
+// }
+
+/* =========================
+   LOAD DASHBOARD STATS
+========================= */
+
+function loadDashboardStats(uid){
+
+    const stats =
+        loadQuizStats(uid);
+
+    const accuracy =
+        calculateAccuracy(
+
+            stats.correctAnswers || 0,
+
+            stats.attemptedQuestions || 0
+        );
+
+    const level =
+        calculateLevel(
+            stats.totalXP || 0
+        );
+
+    renderStats({
+
+        solvedQuestions:
+        stats.correctAnswers || 0,
+
+        accuracy,
+
+        streak:0,
+
+        achievementCount:0
+    });
+
+    renderXP({
+
+        xp:stats.totalXP || 0,
+
+        level
+    });
 }
 
 /* RENDER STATS */
@@ -297,22 +481,23 @@ function renderStats(data){
 
 function renderXP(data){
 
+    const totalXP =
+        data.xp || 0;
+
+    const level =
+        data.level || 1;
+
     const currentXP =
-        calculateLevelXP(
-            data.xp || 0
-        );
+        totalXP % 50;
 
     const progress =
-        (
-            currentXP /
-            XP_PER_LEVEL
-        ) * 100;
+        (currentXP / 50) * 100;
 
     levelText.textContent =
-        `Level ${data.level || 1}`;
+        `Level ${level}`;
 
     xpText.textContent =
-        `${currentXP} / ${XP_PER_LEVEL} XP`;
+        `${currentXP} / 50 XP`;
 
     xpFill.style.width =
         `${progress}%`;
@@ -430,6 +615,106 @@ async function loadAchievements(
     });
 }
 
+/* =========================
+   PROGRESS MODAL
+========================= */
+
+function openProgressModal(){
+
+    const stats =
+    loadQuizStats(
+        auth.currentUser.uid
+    );
+
+    const accuracy =
+    calculateAccuracy(
+
+        stats.correctAnswers || 0,
+
+        stats.attemptedQuestions || 0
+    );
+
+    const level =
+    calculateLevel(
+        stats.totalXP || 0
+    );
+
+    modalLevel.textContent =
+    `Level ${level}`;
+
+    modalXP.textContent =
+    `${stats.totalXP || 0} XP`;
+
+    modalSolved.textContent =
+    stats.correctAnswers || 0;
+
+    modalAccuracy.textContent =
+    `${accuracy}%`;
+
+    const currentXP =
+    (stats.totalXP || 0) % 50;
+
+    const progress =
+    (currentXP / 50) * 100;
+
+    modalXPText.textContent =
+    `${currentXP} / 50 XP`;
+
+    modalXPFill.style.width =
+    `${progress}%`;
+
+    progressModal.classList.remove(
+        "hidden"
+    );
+}
+
+if(progressBtn){
+
+    progressBtn.addEventListener(
+        "click",
+        (e)=>{
+
+            e.preventDefault();
+
+            openProgressModal();
+        }
+    );
+}
+
+if(closeProgress){
+
+    closeProgress.addEventListener(
+        "click",
+        ()=>{
+
+            progressModal.classList.add(
+                "hidden"
+            );
+        }
+    );
+}
+
+/* CLOSE ON OUTSIDE CLICK */
+
+if(progressModal){
+
+    progressModal.addEventListener(
+        "click",
+        (e)=>{
+
+            if(
+                e.target ===
+                progressModal
+            ){
+
+                progressModal.classList.add(
+                    "hidden"
+                );
+            }
+        }
+    );
+}
+
 /* PROFILE DROPDOWN */
 
 if(profileToggle){
@@ -443,6 +728,111 @@ if(profileToggle){
             profileDropdown.classList.toggle(
                 "active"
             );
+        }
+    );
+}
+
+/* RENAME SYSTEM */
+
+if(renameBtn){
+
+    renameBtn.addEventListener(
+        "click",
+        ()=>{
+
+            renameModal.classList.remove(
+                "hidden"
+            );
+
+            profileDropdown.classList.remove(
+                "active"
+            );
+
+            renameInput.value =
+            dropdownName.textContent;
+        }
+    );
+}
+
+if(cancelRename){
+
+    cancelRename.addEventListener(
+        "click",
+        ()=>{
+
+            renameModal.classList.add(
+                "hidden"
+            );
+        }
+    );
+}
+
+if(saveRename){
+
+    saveRename.addEventListener(
+        "click",
+        ()=>{
+
+            const newName =
+            renameInput.value.trim();
+
+            if(!newName){
+                return;
+            }
+
+            username.textContent =
+            `${newName} 👋`;
+
+            dropdownName.textContent =
+            newName;
+
+            localStorage.setItem(
+
+    `defixerCustomName_${auth.currentUser.uid}`,
+
+    newName
+);
+
+            renameModal.classList.add(
+                "hidden"
+            );
+        }
+    );
+}
+
+/* ENTER TO SAVE */
+
+if(renameInput){
+
+    renameInput.addEventListener(
+        "keydown",
+        (e)=>{
+
+            if(e.key === "Enter"){
+
+                saveRename.click();
+            }
+        }
+    );
+}
+
+/* OUTSIDE CLICK TO CLOSE */
+
+if(renameModal){
+
+    renameModal.addEventListener(
+        "click",
+        (e)=>{
+
+            if(
+                e.target ===
+                renameModal
+            ){
+
+                renameModal.classList.add(
+                    "hidden"
+                );
+            }
         }
     );
 }

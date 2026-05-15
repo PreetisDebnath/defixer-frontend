@@ -3,6 +3,15 @@
 import { questions }
 from "./data/questions.js";
 
+import {
+
+  auth,
+
+  onAuthStateChanged
+
+}
+from "./firebase.js";
+
 /* =========================
    INIT ICONS
 ========================= */
@@ -29,7 +38,38 @@ let attemptedQuestions = 0;
 
 let totalXP = 0;
 
+let overallCorrectAnswers = 0;
+
+let overallWrongAnswers = 0;
+
+let overallAttempts = 0;
+
+let overallXP = 0;
+
 let shuffleMode = false;
+
+let currentUser = null;
+
+/* =========================
+   GET USER STORAGE KEY
+========================= */
+
+function getStorageKey(){
+
+  if(!currentUser){
+
+    return null;
+  }
+
+  return `debugArenaQuizState_${currentUser.uid}`;
+}
+
+// /* =========================
+//    LOCAL STORAGE KEY
+// ========================= */
+
+// const QUIZ_STORAGE_KEY =
+// "debugArenaQuizState";
 
 /* =========================
    DOM ELEMENTS
@@ -70,8 +110,8 @@ document.getElementById("mcq-section");
 const syntaxSection =
 document.getElementById("syntax-section");
 
-const syntaxAnswer =
-document.getElementById("syntax-answer");
+// const syntaxAnswer =
+// document.getElementById("syntax-answer");
 
 /* SIDEBAR */
 
@@ -143,6 +183,87 @@ document.getElementById(
   "dashboardLoader"
 );
 
+const menuToggle =
+document.getElementById(
+  "menu-toggle"
+);
+
+const navDrawer =
+document.getElementById(
+  "nav-drawer"
+);
+
+const profileAvatar =
+document.getElementById(
+  "profile-avatar"
+);
+
+/* =========================
+   CODEMIRROR
+========================= */
+
+const editor =
+CodeMirror(
+
+  document.getElementById(
+    "editor"
+  ),
+
+  {
+
+    mode:"javascript",
+
+    theme:"material-darker",
+
+    lineNumbers:false,
+
+    autoCloseBrackets:true,
+
+    lineWrapping:true,
+
+    tabSize:2,
+
+    indentUnit:2,
+
+    value:""
+
+  }
+);
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimeout;
+
+function showToast(message){
+
+  const toast =
+  document.getElementById(
+    "toast"
+  );
+
+  clearTimeout(
+    toastTimeout
+  );
+
+  toast.textContent =
+  message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  toastTimeout =
+  setTimeout(()=>{
+
+    toast.classList.remove(
+      "show"
+    );
+
+  }, 3000);
+}
+
 /* =========================
    SHUFFLE ARRAY
 ========================= */
@@ -175,10 +296,148 @@ function shuffleArray(array){
 }
 
 /* =========================
+   SAVE QUIZ STATE
+========================= */
+
+function saveQuizState(){
+
+  const quizState = {
+
+    currentQuestionIndex,
+
+    score,
+
+    correctAnswers:
+overallCorrectAnswers,
+
+wrongAnswers:
+overallWrongAnswers,
+
+attemptedQuestions:
+overallAttempts,
+
+totalXP:
+overallXP,
+
+    shuffleMode,
+
+    accuracy:
+overallAttempts > 0
+? Math.round(
+(overallCorrectAnswers / overallAttempts) * 100
+)
+: 0,
+
+level:
+Math.floor(overallXP / 50) + 1,
+
+    selectedLanguage:
+    languageFilter.value,
+
+    selectedDifficulty:
+    difficultyFilter.value,
+
+    selectedQuestionType:
+    questionTypeFilter.value
+
+  };
+
+  const storageKey =
+getStorageKey();
+
+if(!storageKey){
+  return;
+}
+
+localStorage.setItem(
+
+  storageKey,
+
+  JSON.stringify(quizState)
+
+);
+}
+
+/* =========================
+   LOAD QUIZ STATE
+========================= */
+
+function loadQuizState(){
+
+  const storageKey =
+getStorageKey();
+
+if(!storageKey){
+  return;
+}
+
+const savedState =
+localStorage.getItem(
+  storageKey
+);
+
+  if(!savedState){
+    return;
+  }
+
+  const parsedState =
+  JSON.parse(savedState);
+
+  currentQuestionIndex =
+  parsedState.currentQuestionIndex || 0;
+
+  score =
+  parsedState.score || 0;
+
+  overallCorrectAnswers =
+parsedState.correctAnswers || 0;
+
+overallWrongAnswers =
+parsedState.wrongAnswers || 0;
+
+overallAttempts =
+parsedState.attemptedQuestions || 0;
+
+overallXP =
+parsedState.totalXP || 0;
+
+correctAnswers = 0;
+
+wrongAnswers = 0;
+
+attemptedQuestions = 0;
+
+totalXP = 0;
+
+  shuffleMode =
+  parsedState.shuffleMode || false;
+
+  languageFilter.value =
+  parsedState.selectedLanguage || "All";
+
+  difficultyFilter.value =
+  parsedState.selectedDifficulty || "All";
+
+  questionTypeFilter.value =
+  parsedState.selectedQuestionType || "All";
+
+  if(shuffleMode){
+
+    shuffleToggle.classList.add(
+      "active"
+    );
+  }
+
+  filterQuestions(false);
+
+  updateStats();
+}
+
+/* =========================
    FILTER QUESTIONS
 ========================= */
 
-function filterQuestions() {
+function filterQuestions(reset = true) {
 
   const selectedLanguage =
   languageFilter.value;
@@ -212,13 +471,17 @@ function filterQuestions() {
 
   });
 
-  if(shuffleMode){
+    if(shuffleMode){
 
     filteredQuestions =
     shuffleArray(filteredQuestions);
   }
 
-  resetQuiz(false);
+  if(reset){
+
+    resetQuiz(false);
+
+  }
 
   renderQuestion();
 }
@@ -287,7 +550,7 @@ function renderQuestion() {
 
   selectedOption = null;
 
-  syntaxAnswer.value = "";
+  editor.setValue("");
 
   submitBtn.disabled = false;
 
@@ -309,8 +572,42 @@ function renderQuestion() {
 
   /* CODE */
 
-  questionCode.textContent =
-  currentQuestion.code;
+  questionCode.className = "";
+
+if(currentQuestion.language === "JavaScript"){
+
+  questionCode.classList.add(
+    "language-javascript"
+  );
+}
+
+else if(currentQuestion.language === "Python"){
+
+  questionCode.classList.add(
+    "language-python"
+  );
+}
+
+else if(currentQuestion.language === "C"){
+
+  questionCode.classList.add(
+    "language-c"
+  );
+}
+
+else{
+
+  questionCode.classList.add(
+    "language-javascript"
+  );
+}
+
+questionCode.textContent =
+currentQuestion.code;
+
+Prism.highlightElement(
+  questionCode
+);
 
   /* TYPE RENDERING */
 
@@ -323,6 +620,39 @@ function renderQuestion() {
     syntaxSection.classList.remove(
       "hidden"
     );
+
+    if(
+  currentQuestion.language ===
+  "JavaScript"
+){
+
+  editor.setOption(
+    "mode",
+    "javascript"
+  );
+}
+
+else if(
+  currentQuestion.language ===
+  "Python"
+){
+
+  editor.setOption(
+    "mode",
+    "python"
+  );
+}
+
+else if(
+  currentQuestion.language ===
+  "C"
+){
+
+  editor.setOption(
+    "mode",
+    "text/x-csrc"
+  );
+}
 
   } else {
 
@@ -414,21 +744,21 @@ function renderQuestion() {
 function updateStats() {
 
   solvedCount.textContent =
-  correctAnswers;
+overallCorrectAnswers;
 
-  attemptedCount.textContent =
-  attemptedQuestions;
+attemptedCount.textContent =
+overallAttempts;
 
-  wrongCount.textContent =
-  wrongAnswers;
+wrongCount.textContent =
+overallWrongAnswers;
 
   let accuracy = 0;
 
-  if(attemptedQuestions > 0){
+  if(overallAttempts > 0){
 
     accuracy =
     Math.round(
-      (correctAnswers / attemptedQuestions)
+      (overallCorrectAnswers / overallAttempts)
       * 100
     );
 
@@ -446,16 +776,16 @@ conic-gradient(
 `;
 
   xpValue.textContent =
-  `⭐ ${totalXP} XP`;
+  `⭐ ${overallXP} XP`;
 
   const level =
-  Math.floor(totalXP / 50) + 1;
+  Math.floor(overallXP / 50) + 1
 
   levelText.textContent =
   `Level ${level}`;
 
   const xpProgress =
-  totalXP % 50;
+overallXP % 50;
 
   xpFill.style.width =
   `${(xpProgress / 50) * 100}%`;
@@ -470,9 +800,9 @@ function showHint() {
   const currentQuestion =
   filteredQuestions[currentQuestionIndex];
 
-  alert(
-    currentQuestion.hint
-  );
+  showToast(
+  currentQuestion.hint
+);
 }
 
 /* =========================
@@ -494,9 +824,9 @@ function submitAnswer() {
 
     if(!selectedOption){
 
-      alert(
-        "Please select an option first."
-      );
+      showToast(
+  "Please select an option first."
+);
 
       attemptedQuestions--;
 
@@ -555,9 +885,19 @@ function submitAnswer() {
       totalXP +=
       currentQuestion.xp;
 
+      overallCorrectAnswers++;
+
+overallAttempts++;
+
+overallXP += currentQuestion.xp;
+
     } else {
 
       wrongAnswers++;
+
+      overallWrongAnswers++;
+
+overallAttempts++;
     }
 
   }
@@ -569,13 +909,13 @@ function submitAnswer() {
   if(currentQuestion.type === "syntax"){
 
     const userAnswer =
-    syntaxAnswer.value.trim();
+editor.getValue().trim();
 
     if(userAnswer === ""){
 
-      alert(
-        "Please write your answer first."
-      );
+      showToast(
+  "Please write your answer first."
+);
 
       attemptedQuestions--;
 
@@ -590,7 +930,7 @@ function submitAnswer() {
     const validation =
     currentQuestion.validation;
 
-    syntaxAnswer.disabled = true;
+    // syntaxAnswer.disabled = true;
 
     /* =====================
        INCLUDES VALIDATION
@@ -657,15 +997,25 @@ function submitAnswer() {
       totalXP +=
       currentQuestion.xp;
 
-      syntaxAnswer.style.borderColor =
-      "#22C55E";
+      overallCorrectAnswers++;
+
+overallAttempts++;
+
+overallXP += currentQuestion.xp;
+
+      // syntaxAnswer.style.borderColor =
+      // "#22C55E";
 
     } else {
 
       wrongAnswers++;
 
-      syntaxAnswer.style.borderColor =
-      "#EF4444";
+      overallWrongAnswers++;
+
+overallAttempts++;
+
+      // syntaxAnswer.style.borderColor =
+      // "#EF4444";
     }
 
   }
@@ -681,7 +1031,9 @@ function submitAnswer() {
 
   updateStats();
 
-  submitBtn.disabled = true;
+saveQuizState();
+
+submitBtn.disabled = true;
 }
 
 /* =========================
@@ -736,10 +1088,12 @@ function resetQuiz(render = true) {
 
   totalXP = 0;
 
-  syntaxAnswer.disabled = false;
+  // syntaxAnswer.disabled = false;
 
-  syntaxAnswer.style.borderColor =
-  "rgba(34,211,238,0.10)";
+  // syntaxAnswer.style.borderColor =
+  // "rgba(34,211,238,0.10)";
+
+  editor.setValue("");
 
   updateStats();
 
@@ -762,19 +1116,20 @@ function nextQuestion() {
 
   if(!submitBtn.disabled){
 
-    alert(
-      "Please submit your answer first."
-    );
+    showToast(
+  "Please submit your answer first."
+);
 
     return;
   }
 
   currentQuestionIndex++;
 
-  syntaxAnswer.disabled = false;
+  // syntaxAnswer.disabled = false;
 
-  syntaxAnswer.style.borderColor =
-  "rgba(34,211,238,0.10)";
+  // syntaxAnswer.style.borderColor =
+  // "rgba(34,211,238,0.10)";
+  editor.setValue("");
 
   if(
     currentQuestionIndex >=
@@ -787,6 +1142,8 @@ function nextQuestion() {
   }
 
   renderQuestion();
+
+saveQuizState();
 }
 
 /* =========================
@@ -804,6 +1161,8 @@ shuffleToggle.addEventListener(
     );
 
     filterQuestions();
+
+saveQuizState();
 
   }
 );
@@ -833,22 +1192,111 @@ replayBtn.addEventListener(
 
     resetQuiz();
 
+saveQuizState();
+
   }
 );
 
 languageFilter.addEventListener(
   "change",
-  filterQuestions
+  ()=>{
+
+    filterQuestions();
+
+    saveQuizState();
+
+  }
 );
 
 difficultyFilter.addEventListener(
   "change",
-  filterQuestions
+  ()=>{
+
+    filterQuestions();
+
+    saveQuizState();
+
+  }
 );
 
 questionTypeFilter.addEventListener(
   "change",
-  filterQuestions
+  ()=>{
+
+    filterQuestions();
+
+    saveQuizState();
+
+  }
+);
+
+/* =========================
+   NAV DRAWER
+========================= */
+
+if(menuToggle){
+
+  menuToggle.addEventListener(
+    "click",
+    (e)=>{
+
+      e.stopPropagation();
+
+      navDrawer.classList.toggle(
+        "hidden"
+      );
+
+    }
+  );
+}
+
+window.addEventListener(
+  "click",
+  (e)=>{
+
+    if(
+      navDrawer &&
+      menuToggle &&
+      !navDrawer.contains(e.target) &&
+      !menuToggle.contains(e.target)
+    ){
+
+      navDrawer.classList.add(
+        "hidden"
+      );
+    }
+  }
+);
+
+/* =========================
+   LOAD USER PROFILE
+========================= */
+
+onAuthStateChanged(
+  auth,
+  (user)=>{
+
+    if(user){
+
+      currentUser = user;
+
+      if(
+  user.photoURL &&
+  profileAvatar
+){
+
+  profileAvatar.src =
+  user.photoURL;
+}
+
+loadQuizState();
+
+renderQuestion();
+
+updateStats();
+
+    }
+  }
 );
 
 /* =========================
@@ -858,10 +1306,6 @@ questionTypeFilter.addEventListener(
 window.addEventListener(
   "load",
   () => {
-
-    renderQuestion();
-
-    updateStats();
 
     lucide.createIcons();
 

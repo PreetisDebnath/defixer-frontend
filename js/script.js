@@ -1,3 +1,5 @@
+/*  script.js  */
+
 /* FIREBASE */
 
 import {
@@ -482,9 +484,9 @@ loginForm.addEventListener(
             ).value;
 
         const rememberMe =
-            document.querySelector(
-                '.remember-label input'
-            ).checked;
+    document.getElementById(
+        "remember-me"
+    ).checked;
 
         const loginButton =
             loginForm.querySelector(

@@ -1,4 +1,4 @@
-<!-- practice.html -->
+<!-- dashboard.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -159,7 +159,7 @@
 
           </a>
 
-          <a href="#" class="nav-item">
+          <a href="./practice.html" class="nav-item">
 
             <i data-lucide="code-2"></i>
 
@@ -167,7 +167,7 @@
 
           </a>
 
-          <a href="#" class="nav-item">
+          <a href="#" class="nav-item" id="progressBtn">
 
             <i data-lucide="bar-chart-3"></i>
 
@@ -322,15 +322,16 @@
             <button
               class="dropdown-item"
               type="button"
+              id="renameBtn"
             >
 
               <i data-lucide="user"></i>
 
-              Profile
+              Rename
 
             </button>
 
-            <button
+            <!-- <button
               class="dropdown-item"
               type="button"
             >
@@ -339,7 +340,7 @@
 
               Settings
 
-            </button>
+            </button> -->
 
             <button
               class="dropdown-item logout-red"
@@ -502,6 +503,146 @@
         </div>
 
       </section>
+
+      <!-- PROGRESS MODAL -->
+
+<div
+  class="progress-modal hidden"
+  id="progressModal"
+>
+
+  <div class="progress-content">
+
+    <div class="progress-header">
+
+      <h2>
+        Your Progress
+      </h2>
+
+      <button
+        id="closeProgress"
+        class="close-progress"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="progress-grid">
+
+      <div class="progress-card">
+
+        <h3 id="modalLevel">
+          Level 1
+        </h3>
+
+        <p>
+          Current Level
+        </p>
+
+      </div>
+
+      <div class="progress-card">
+
+        <h3 id="modalXP">
+          0 XP
+        </h3>
+
+        <p>
+          Total XP
+        </p>
+
+      </div>
+
+      <div class="progress-card">
+
+        <h3 id="modalSolved">
+          0
+        </h3>
+
+        <p>
+          Questions Solved
+        </p>
+
+      </div>
+
+      <div class="progress-card">
+
+        <h3 id="modalAccuracy">
+          0%
+        </h3>
+
+        <p>
+          Accuracy
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="modal-xp-wrapper">
+
+      <div class="modal-xp-top">
+
+        <span>
+          XP Progress
+        </span>
+
+        <span id="modalXPText">
+          0 / 50 XP
+        </span>
+
+      </div>
+
+      <div class="modal-xp-bar">
+
+        <div
+          class="modal-xp-fill"
+          id="modalXPFill"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- RENAME MODAL -->
+
+<div
+  class="rename-modal hidden"
+  id="renameModal"
+>
+
+  <div class="rename-content">
+
+    <h2>
+      Change Username
+    </h2>
+
+    <input
+      type="text"
+      id="renameInput"
+      placeholder="Enter new username"
+    >
+
+    <div class="rename-actions">
+
+      <button id="cancelRename">
+        Cancel
+      </button>
+
+      <button id="saveRename">
+        Save
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
     </main>
 

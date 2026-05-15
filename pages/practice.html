@@ -14,6 +14,21 @@
 
   <title>Debug Arena</title>
 
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+/>
+
   <!-- FAVICON -->
 
   <link
@@ -137,25 +152,57 @@
 
       <!-- TOPBAR -->
 
-      <header class="practice-header">
+<header class="practice-header">
 
-        <!-- LEFT -->
+  <!-- LEFT -->
 
-        <div class="header-left">
+  <div class="header-left">
 
-          <button
-            class="icon-btn"
-            type="button"
-            aria-label="Menu"
-          >
+    <button
+      class="icon-btn"
+      type="button"
+      aria-label="Menu"
+      id="menu-toggle"
+    >
 
-            <i data-lucide="menu"></i>
+      <i data-lucide="menu"></i>
 
-          </button>
+    </button>
 
-          <!-- FILTERS -->
+    <!-- NAV DRAWER -->
 
-          <div class="filters-wrapper">
+    <div
+      class="nav-drawer hidden"
+      id="nav-drawer"
+    >
+
+      <a
+        href="./dashboard.html"
+        class="drawer-link"
+      >
+
+        <i data-lucide="layout-dashboard"></i>
+
+        Dashboard
+
+      </a>
+
+      <a
+        href="./practice.html"
+        class="drawer-link active"
+      >
+
+        <i data-lucide="code-2"></i>
+
+        Practice
+
+      </a>
+
+    </div>
+
+    <!-- FILTERS -->
+
+    <div class="filters-wrapper">
 
             <!-- LANGUAGE -->
 
@@ -306,6 +353,7 @@
           <div class="profile-image">
 
             <img
+              id="profile-avatar"
               src="../assets/icons/avatar.jpg"
               alt="Profile"
             >
@@ -348,7 +396,14 @@
 
         <div class="code-block">
 
-<pre><code id="question-code"></code></pre>
+<pre class="code-block">
+
+  <code
+    id="question-code"
+    class="language-javascript"
+  ></code>
+
+</pre>
 
         </div>
 
@@ -383,14 +438,15 @@
             Type the corrected syntax/code below.
           </p>
 
-          <textarea
+          <!-- <textarea
   id="syntax-answer"
   class="syntax-answer-box"
   placeholder="Write your corrected syntax here..."
   spellcheck="false"
   autocorrect="off"
   autocapitalize="off"
-></textarea>
+></textarea> -->
+          <div id="editor"></div>
 
         </div>
 
@@ -665,6 +721,28 @@
     </div>
 
   </div>
+
+  <!-- TOAST -->
+
+<div id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
 
   <!-- PRACTICE JS -->
 

@@ -1,3 +1,5 @@
+/* firebase.js */
+
 /* FIREBASE APP */
 
 import {
