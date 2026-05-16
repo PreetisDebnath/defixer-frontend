@@ -232,6 +232,11 @@ CodeMirror(
   }
 );
 
+const editorWrapper =
+document.getElementById(
+  "editor"
+);
+
 /* =========================
    TOAST
 ========================= */
@@ -553,6 +558,11 @@ function renderQuestion() {
   selectedOption = null;
 
   editor.setValue("");
+
+  editorWrapper.classList.remove(
+  "editor-correct",
+  "editor-wrong"
+);
 
   submitBtn.disabled = false;
 
@@ -1005,6 +1015,14 @@ overallAttempts++;
 
 overallXP += currentQuestion.xp;
 
+editorWrapper.classList.remove(
+  "editor-wrong"
+);
+
+editorWrapper.classList.add(
+  "editor-correct"
+);
+
       // syntaxAnswer.style.borderColor =
       // "#22C55E";
 
@@ -1015,6 +1033,14 @@ overallXP += currentQuestion.xp;
       overallWrongAnswers++;
 
 overallAttempts++;
+
+editorWrapper.classList.remove(
+  "editor-correct"
+);
+
+editorWrapper.classList.add(
+  "editor-wrong"
+);
 
       // syntaxAnswer.style.borderColor =
       // "#EF4444";

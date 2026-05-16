@@ -3080,3 +3080,20 @@ linear-gradient(
   2px solid #22D3EE;
 }
 
+/* =========================
+   SYNTAX RESULT STATES
+========================= */
+
+.editor-correct .CodeMirror{
+    border:2px solid #22C55E;
+
+    box-shadow:
+    0 0 24px rgba(34,197,94,0.18);
+}
+
+.editor-wrong .CodeMirror{
+    border:2px solid #EF4444;
+
+    box-shadow:
+    0 0 24px rgba(239,68,68,0.18);
+}
