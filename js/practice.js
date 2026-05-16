@@ -219,6 +219,8 @@ CodeMirror(
 
     autoCloseBrackets:true,
 
+    inputStyle:"contenteditable",
+
     lineWrapping:true,
 
     tabSize:2,

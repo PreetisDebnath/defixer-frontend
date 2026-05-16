@@ -2288,6 +2288,21 @@ transform:translateY(-1px);
     padding:16px;
   }
 
+  .icon-btn{
+    align-self:flex-start;
+
+    transform: none;
+}
+
+.icon-btn:active{
+    transform:scale(0.95);
+
+    border-color:rgba(34,211,238,0.45);
+
+    box-shadow:
+    0 0 18px rgba(34,211,238,0.18);
+}
+
   .header-left{
 
     width:100%;
