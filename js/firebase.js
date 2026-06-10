@@ -184,12 +184,22 @@ async function createUserDocument(user){
 
         else{
 
-            await updateDoc(userRef, {
+    await updateDoc(userRef, {
 
-                lastLogin:
-                    serverTimestamp()
-            });
-        }
+        displayName:
+            user.displayName || "Developer",
+
+        email:
+            user.email || "No Email",
+
+        photoURL:
+            user.photoURL ||
+            "../assets/icons/avatar.jpg",
+
+        lastLogin:
+            serverTimestamp()
+    });
+}
     }
 
     catch(error){

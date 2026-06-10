@@ -1320,27 +1320,40 @@ window.addEventListener(
 
 onAuthStateChanged(
   auth,
-  (user)=>{
+  async (user)=>{
 
     if(user){
 
       currentUser = user;
 
-      if(
-  user.photoURL &&
-  profileAvatar
-){
+      await user.reload();
 
-  profileAvatar.src =
-  user.photoURL;
-}
+      const refreshedUser =
+      auth.currentUser;
 
-loadQuizState();
+      if(profileAvatar){
 
-renderQuestion();
+        profileAvatar.src =
+        refreshedUser.photoURL ||
+        "../assets/icons/avatar.jpg";
 
-updateStats();
+        profileAvatar.onerror = ()=>{
 
+          profileAvatar.src =
+          "../assets/icons/avatar.jpg";
+        };
+      }
+
+      console.log(
+        "Profile Photo:",
+        refreshedUser.photoURL
+      );
+
+      loadQuizState();
+
+      renderQuestion();
+
+      updateStats();
     }
   }
 );

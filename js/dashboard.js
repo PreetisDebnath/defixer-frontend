@@ -291,7 +291,7 @@ onAuthStateChanged(
 async function initializeDashboard(
     user
 ){
-
+    await auth.currentUser.reload();
     loadProfile(user);
 
     loadDashboardStats(
@@ -365,10 +365,15 @@ const displayName =
     const email =
         user.email ||
         "No Email";
-
+    
     const avatar =
-        user.photoURL ||
-        defaultAvatar;
+    user.photoURL
+        ? user.photoURL.replace(
+            "=s96-c",
+            "=s400-c"
+          )
+        : defaultAvatar;
+
 
     username.textContent =
         `${displayName} 👋`;
