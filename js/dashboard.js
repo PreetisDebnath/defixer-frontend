@@ -1,5 +1,15 @@
 /* dashboard.js */
 
+import {
+
+    calculateAccuracy,
+    calculateLevel,
+    calculateXPProgress
+
+}
+from "./utils/scoring.js";
+
+
 /* FIREBASE */
 
 import {
@@ -12,15 +22,9 @@ import {
 
     createUserDocument,
 
-    subscribeToUserData,
-
     getRecentActivities,
 
     getAchievements,
-
-    XP_PER_LEVEL,
-
-    calculateLevelXP
 
 }
 from "./firebase.js";
@@ -242,25 +246,6 @@ function loadQuizStats(uid){
     return JSON.parse(savedState);
 }
 
-function calculateAccuracy(
-    correct,
-    attempted
-){
-
-    if(attempted === 0){
-
-        return 0;
-    }
-
-    return Math.round(
-        (correct / attempted) * 100
-    );
-}
-
-function calculateLevel(xp){
-
-    return Math.floor(xp / 50) + 1;
-}
 
 /* AUTH PROTECTION */
 
@@ -399,6 +384,20 @@ const displayName =
 
     dropdownAvatar.src =
         avatar;
+
+    profileAvatar.onerror = () => {
+
+    profileAvatar.src =
+    defaultAvatar;
+
+};
+
+dropdownAvatar.onerror = () => {
+
+    dropdownAvatar.src =
+    defaultAvatar;
+
+};
 }
 
 /* REALTIME USER DATA */
@@ -488,7 +487,7 @@ function renderXP(data){
         data.level || 1;
 
     const currentXP =
-        totalXP % 50;
+    calculateXPProgress(totalXP);
 
     const progress =
         (currentXP / 50) * 100;
@@ -652,7 +651,9 @@ function openProgressModal(){
     `${accuracy}%`;
 
     const currentXP =
-    (stats.totalXP || 0) % 50;
+calculateXPProgress(
+    stats.totalXP || 0
+);
 
     const progress =
     (currentXP / 50) * 100;

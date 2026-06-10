@@ -1,1 +1,7 @@
-console.log("Defixer Running");
+// app.js
+
+export function initializeApp() {
+
+    console.log("Defixer Initialized");
+
+}

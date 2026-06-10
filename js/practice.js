@@ -5,6 +5,15 @@ from "./data/questions.js";
 
 import {
 
+    calculateAccuracy,
+    calculateLevel,
+    calculateXPProgress
+
+}
+from "./utils/scoring.js";
+
+import {
+
   auth,
 
   onAuthStateChanged
@@ -211,7 +220,7 @@ CodeMirror(
 
   {
 
-    mode:"javascript",
+    mode:"text/x-csrc",
 
     theme:"material-darker",
 
@@ -329,14 +338,13 @@ overallXP,
     shuffleMode,
 
     accuracy:
-overallAttempts > 0
-? Math.round(
-(overallCorrectAnswers / overallAttempts) * 100
-)
-: 0,
+calculateAccuracy(
+    overallCorrectAnswers,
+    overallAttempts
+),
 
 level:
-Math.floor(overallXP / 50) + 1,
+calculateLevel(overallXP),
 
     selectedLanguage:
     languageFilter.value,
@@ -586,10 +594,17 @@ function renderQuestion() {
 
   questionCode.className = "";
 
-if(currentQuestion.language === "JavaScript"){
+if(currentQuestion.language === "C"){
 
   questionCode.classList.add(
-    "language-javascript"
+    "language-c"
+  );
+}
+
+else if(currentQuestion.language === "C++"){
+
+  questionCode.classList.add(
+    "language-cpp"
   );
 }
 
@@ -600,17 +615,17 @@ else if(currentQuestion.language === "Python"){
   );
 }
 
-else if(currentQuestion.language === "C"){
+else if(currentQuestion.language === "Java"){
 
   questionCode.classList.add(
-    "language-c"
+    "language-java"
   );
 }
 
 else{
 
   questionCode.classList.add(
-    "language-javascript"
+    "language-c"
   );
 }
 
@@ -623,7 +638,7 @@ Prism.highlightElement(
 
   /* TYPE RENDERING */
 
-  if(currentQuestion.type === "syntax"){
+if(currentQuestion.type === "syntax"){
 
     mcqSection.classList.add(
       "hidden"
@@ -634,39 +649,50 @@ Prism.highlightElement(
     );
 
     if(
-  currentQuestion.language ===
-  "JavaScript"
-){
+      currentQuestion.language ===
+      "C"
+    ){
 
-  editor.setOption(
-    "mode",
-    "javascript"
-  );
-}
+      editor.setOption(
+        "mode",
+        "text/x-csrc"
+      );
+    }
 
-else if(
-  currentQuestion.language ===
-  "Python"
-){
+    else if(
+      currentQuestion.language ===
+      "C++"
+    ){
 
-  editor.setOption(
-    "mode",
-    "python"
-  );
-}
+      editor.setOption(
+        "mode",
+        "text/x-c++src"
+      );
+    }
 
-else if(
-  currentQuestion.language ===
-  "C"
-){
+    else if(
+      currentQuestion.language ===
+      "Python"
+    ){
 
-  editor.setOption(
-    "mode",
-    "text/x-csrc"
-  );
-}
+      editor.setOption(
+        "mode",
+        "python"
+      );
+    }
 
-  } else {
+    else if(
+      currentQuestion.language ===
+      "Java"
+    ){
+
+      editor.setOption(
+        "mode",
+        "text/x-java"
+      );
+    }
+
+} else {
 
     syntaxSection.classList.add(
       "hidden"
@@ -675,7 +701,7 @@ else if(
     mcqSection.classList.remove(
       "hidden"
     );
-  }
+}
 
   /* MCQ OPTIONS */
 
@@ -756,25 +782,19 @@ else if(
 function updateStats() {
 
   solvedCount.textContent =
-overallCorrectAnswers;
+  overallCorrectAnswers;
 
-attemptedCount.textContent =
-overallAttempts;
+  attemptedCount.textContent =
+  overallAttempts;
 
-wrongCount.textContent =
-overallWrongAnswers;
+  wrongCount.textContent =
+  overallWrongAnswers;
 
-  let accuracy = 0;
-
-  if(overallAttempts > 0){
-
-    accuracy =
-    Math.round(
-      (overallCorrectAnswers / overallAttempts)
-      * 100
-    );
-
-  }
+  const accuracy =
+  calculateAccuracy(
+    overallCorrectAnswers,
+    overallAttempts
+  );
 
   accuracyValue.textContent =
   `${accuracy}%`;
@@ -791,13 +811,17 @@ conic-gradient(
   `⭐ ${overallXP} XP`;
 
   const level =
-  Math.floor(overallXP / 50) + 1
+  calculateLevel(
+    overallXP
+  );
 
   levelText.textContent =
   `Level ${level}`;
 
   const xpProgress =
-overallXP % 50;
+  calculateXPProgress(
+    overallXP
+  );
 
   xpFill.style.width =
   `${(xpProgress / 50) * 100}%`;
@@ -1070,17 +1094,11 @@ submitBtn.disabled = true;
 
 function showResultModal() {
 
-  let accuracy = 0;
-
-  if(attemptedQuestions > 0){
-
-    accuracy =
-    Math.round(
-      (correctAnswers / attemptedQuestions)
-      * 100
-    );
-
-  }
+  const accuracy =
+  calculateAccuracy(
+    correctAnswers,
+    attemptedQuestions
+  );
 
   finalScore.textContent =
   `${score} / ${filteredQuestions.length}`;
