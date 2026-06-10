@@ -29,10 +29,10 @@ int main() {
 }`,
 
   options: [
-    "Replace x = x; with this->x = x;",
-    "Replace int x; with float x;",
-    "Remove constructor",
-    "Replace cout << x; with cin >> x;"
+      "Replace int x; with float x;",
+      "Remove constructor",
+      "Replace x = x; with this->x = x;",
+      "Replace cout << x; with cin >> x;"
   ],
 
   correctAnswer: "Replace x = x; with this->x = x;",
