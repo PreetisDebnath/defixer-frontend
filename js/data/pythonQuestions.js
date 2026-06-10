@@ -78,7 +78,10 @@ topic: "General",
 b = 3
 print(a + b)`,
 
-  correctAnswer: "8",
+  validation: {
+  type: "includes",
+  acceptedAnswers: ["8"]
+},
 
   explanation:
     "5 + 3 equals 8.",
@@ -135,7 +138,10 @@ topic: "General",
 `for i in range(3):
     print("*", end="")`,
 
-  correctAnswer: "***",
+  validation: {
+  type: "includes",
+  acceptedAnswers: ["***"]
+},
 
   explanation:
     "The loop runs 3 times and prints one * each time.",
@@ -196,7 +202,10 @@ topic: "General",
 `name = "Python"
 print(name[0])`,
 
-  correctAnswer: "P",
+  validation: {
+  type: "includes",
+  acceptedAnswers: ["P"]
+},
 
   explanation:
     "String indexing starts from 0.",
@@ -253,7 +262,10 @@ topic: "General",
 `nums = [10, 20, 30]
 print(nums[1])`,
 
-  correctAnswer: "20",
+  validation: {
+  type: "includes",
+  acceptedAnswers: ["20"]
+},
 
   explanation:
     "List indexing starts from 0, so nums[1] is 20.",
@@ -356,8 +368,13 @@ return result
 
 print(factorial(5))`,
 
-correctAnswer:
-"for i in range(1, n + 1):",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "for i in range(1, n + 1):",
+    "for i in range(1,n+1):"
+  ]
+},
 
 explanation:
 "The loop stops before n. Using n + 1 includes 5 and produces 120.",
@@ -418,8 +435,12 @@ code:
 
 print(text.upper)`,
 
-correctAnswer:
-"print(text.upper())",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "print(text.upper())"
+  ]
+},
 
 explanation:
 "upper is a method and must be called using parentheses.",
@@ -484,8 +505,13 @@ result = [n * 2 for n in number]
 
 print(result)`,
 
-correctAnswer:
-"result = [n * 2 for n in numbers]",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "result = [n * 2 for n in numbers]",
+    "result=[n*2 for n in numbers]"
+  ]
+},
 
 explanation:
 "The list variable is named numbers, not number.",
@@ -548,8 +574,12 @@ code:
 
 print(numbers[3])`,
 
-correctAnswer:
-"print(numbers[0])",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "print(numbers[0])"
+  ]
+},
 
 explanation:
 "Lists use zero-based indexing. Index 3 is out of range.",
@@ -615,8 +645,12 @@ code:
 
 print(student[1])`,
 
-correctAnswer:
-"print(students[1])",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "print(students[1])"
+  ]
+},
 
 explanation:
 "The list is named students, but student is used in the print statement.",
@@ -684,8 +718,13 @@ add_items(numbers)
 
 print(numbers)`,
 
-  correctAnswer:
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
     "lst.extend([4, 5])",
+    "lst.extend([4,5])"
+  ]
+},
 
   explanation:
     "Using lst = lst + [...] creates a new list and does not modify the original one. extend() modifies the list in place.",
@@ -758,8 +797,13 @@ for key, value in data:
 
 print(result)`,
 
-  correctAnswer:
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
     "for key, value in data.items():",
+    "for key,value in data.items():"
+  ]
+},
 
   explanation:
     "Iterating over a dictionary directly returns only keys. items() returns key-value pairs.",
@@ -866,8 +910,12 @@ sorted(names)
 
 print(names)`,
 
-  correctAnswer:
-    "names.sort()",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "names.sort()"
+  ]
+},
 
   explanation:
     "sorted() returns a new sorted list and does not modify the original list. sort() changes the list in place.",
@@ -933,8 +981,12 @@ total = reduce(lambda a, b: a + b)
 
 print(total)`,
 
-  correctAnswer:
-    "total = reduce(lambda a, b: a + b, numbers)",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "total = reduce(lambda a, b: a + b, numbers)"
+  ]
+},
 
   explanation:
     "reduce() requires both a function and an iterable.",

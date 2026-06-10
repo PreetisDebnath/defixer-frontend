@@ -125,7 +125,12 @@ int main() {
     return 0;
 }`,
 
-  correctAnswer: "Derived",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "Derived"
+  ]
+},
 
   explanation:
     "The Derived class overrides the show() method and hides the Base version.",
@@ -192,7 +197,12 @@ int main() {
     return 0;
 }`,
 
-  correctAnswer: "30",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "30"
+  ]
+},
 
   explanation:
     "arr + 2 points to the third element of the array, which is 30.",
@@ -611,7 +621,12 @@ int main() {
     return 0;
 }`,
 
-  correctAnswer: "18",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "18"
+  ]
+},
 
   explanation:
     "The variable age stores 18 and is printed using cout.",
@@ -642,7 +657,12 @@ int main() {
     return 0;
 }`,
 
-  correctAnswer: "20",
+validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "20"
+  ]
+},
 
   explanation:
     "ref is a reference to num. Changing ref also changes num.",

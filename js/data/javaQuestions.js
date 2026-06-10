@@ -21,8 +21,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "int num = 25;",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "int num = 25;",
+    "int num=25;"
+  ]
+},
 
     explanation:
       "The variable num is declared as an int, but the value assigned to it is a String because it is enclosed in double quotes. Java does not automatically convert a String into an integer during assignment. To fix the error, either remove the quotes and write 25 directly or use Integer.parseInt(\"25\") if the value comes from a String.",
@@ -54,8 +59,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Add a semicolon after the println statement.",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    'System.out.println("Welcome to Java");'
+  ]
+},
 
     explanation:
       "In Java, every statement must end with a semicolon (;). The println statement is missing its terminating semicolon, causing a compilation error.",
@@ -88,8 +97,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "System.out.println(age);",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "System.out.println(age);"
+  ]
+},
 
     explanation:
       "Java is case-sensitive. The variable was declared as age (lowercase a), but later referenced as Age (uppercase A). Since Age does not exist, the compiler reports an error.",
@@ -126,8 +139,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Add i++; inside the loop.",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "i++"
+  ]
+},
 
     explanation:
       "The loop condition depends on i becoming greater than 5. Since i is never updated, the condition always remains true and the loop runs forever. Incrementing i during each iteration allows the loop to terminate normally.",
@@ -164,8 +181,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "if(a == 10)",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "if(a == 10)",
+    "if (a == 10)"
+  ]
+},
 
     explanation:
       "The operator = is used for assignment, while == is used for comparison. Inside an if condition, Java expects a boolean expression. Using == correctly compares the value of a with 10.",
@@ -203,8 +225,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "double result = (double)a / b;",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "double result = (double)a / b;",
+    "double result=(double)a/b;"
+  ]
+},
 
     explanation:
       "Both operands are integers, so Java performs integer division first. The result of 7 / 2 is 3, which is then stored as 3.0 in the double variable. Converting one operand to double forces floating-point division and produces 3.5.",
@@ -239,8 +266,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Use arr[2] instead of arr[3].",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "arr[2]"
+  ]
+},
 
     explanation:
       "Array indexing starts from 0. The array contains three elements at indices 0, 1 and 2. Accessing index 3 causes an ArrayIndexOutOfBoundsException because that position does not exist.",
@@ -280,8 +311,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "if(s1.equals(s2))",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "if(s1.equals(s2))",
+    "if (s1.equals(s2))"
+  ]
+},
 
     explanation:
       "The == operator compares object references, not string contents. Even though both strings contain the same text, they are different objects in memory. The equals() method compares the actual contents of the strings and returns true.",
@@ -316,8 +352,14 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Initialize num before using it, e.g. int num = 0;",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "int",
+    "num",
+    "="
+  ]
+},
 
     explanation:
       "Local variables in Java must be initialized before they are used. Since num has not been assigned any value, the compiler cannot determine what should be printed.",
@@ -352,8 +394,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "for(int i = 1; i <= 5; i++)",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "for(int i = 1; i <= 5; i++)",
+    "for (int i = 1; i <= 5; i++)"
+  ]
+},
 
     explanation:
       "The loop starts with i equal to 1. The condition i >= 5 is false immediately, so the loop never executes. Replacing >= with <= allows the loop to continue until i reaches 5.",
@@ -392,8 +439,15 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Use a temporary variable for swapping.",
+  validation: {
+  type: "tokens",
+  requiredTokens: [
+    "temp",
+    "=",
+    "a",
+    "b"
+  ]
+},
 
     explanation:
       "After executing a = b, the original value of a is lost. Both variables become 10. A temporary variable preserves one value while the swap is performed.",
@@ -430,8 +484,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Create an object and call display(), or make display() static.",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "static void display()",
+    "Main obj = new Main();"
+  ]
+},
 
     explanation:
       "The display method is non-static, while main is static. A static method cannot directly call a non-static method because non-static methods belong to objects. Either make display static or create an object of Main and call the method through that object.",
@@ -467,8 +526,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Output: 5 then 6",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "5",
+    "6"
+  ]
+},
 
     explanation:
       "The post-increment operator (x++) first uses the current value and then increases it by one. Therefore, the first println displays 5. After that statement executes, x becomes 6, so the second println displays 6.",
@@ -503,8 +567,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "String name = \"Java\";",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    'String name = "Java";',
+    'String name="Java";'
+  ]
+},
 
     explanation:
       "Java class names are case-sensitive. The String class must begin with an uppercase S. Writing string causes the compiler to search for a class named string, which does not exist.",
@@ -539,8 +608,14 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Check if name is null before calling length().",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "name",
+    "!=",
+    "null"
+  ]
+},
 
     explanation:
       "A null reference does not point to any object. Calling a method on null causes a NullPointerException. Always verify that an object reference is not null before accessing its methods or properties.",
@@ -585,8 +660,13 @@ public class Main {
     }
 }`,
 
-    correctAnswer:
-      "Use this.age = age;",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "this.age = age;",
+    "this.age=age;"
+  ]
+},
 
     explanation:
       "The constructor parameter age shadows the instance variable age. The statement age = age assigns the parameter to itself, leaving the instance variable unchanged. Using this.age refers to the object's field and correctly stores the passed value.",
@@ -622,9 +702,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Replace i <= arr.length with i < arr.length.",
-
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "i < arr.length",
+    "i<arr.length"
+  ]
+},
     explanation:
       "Array indices start at 0 and end at length - 1. When i becomes equal to arr.length, the program tries to access an index that doesn't exist, causing an ArrayIndexOutOfBoundsException.",
 
@@ -662,8 +746,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Use s1.equals(s2).",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "s1.equals(s2)"
+  ]
+},
 
     explanation:
       "The == operator compares object references rather than the actual contents of strings. Since s1 and s2 are different objects, == returns false. The equals() method compares the text stored inside the strings and returns true.",
@@ -700,8 +788,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Make display() static or call it using an object.",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "static void display()",
+    "Main obj = new Main();"
+  ]
+},
 
     explanation:
       "The main method is static and cannot directly access non-static methods. Either declare display() as static or create an object of Main and invoke display() through that object.",
@@ -739,8 +832,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "double result = (double)a / b;",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "double result = (double)a / b;",
+    "double result=(double)a/b;"
+  ]
+},
 
     explanation:
       "Both operands are integers, so Java performs integer division and produces 2. The result is then converted to 2.0. Casting one operand to double forces floating-point division and produces 2.5.",
@@ -778,8 +876,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Add a base condition to stop recursion.",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "if",
+    "return"
+  ]
+},
 
     explanation:
       "The method continuously calls itself without any terminating condition. Each call adds a new frame to the call stack until the stack memory is exhausted, resulting in a StackOverflowError.",
@@ -791,7 +894,7 @@ topic: "General",
   },
 
   {
-    id: 12,
+    id: 22,
 
     type: "syntax",
 
@@ -814,8 +917,14 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Check if name != null before calling toUpperCase().",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "name",
+    "!=",
+    "null"
+  ]
+},
 
     explanation:
       "A null reference does not point to any object. Calling a method on a null reference causes a NullPointerException. A null check prevents the error.",
@@ -854,8 +963,15 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Use a temporary variable.",
+   validation: {
+  type: "tokens",
+  requiredTokens: [
+    "temp",
+    "=",
+    "a",
+    "b"
+  ]
+},
 
     explanation:
       "After executing a = b, the original value of a is lost forever. Both variables end up storing 20. A temporary variable preserves one value while the swap is performed.",
@@ -895,8 +1011,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Loop from str.length()-1 down to 0.",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "str.length()-1",
+    "i--"
+  ]
+},
 
     explanation:
       "The current loop copies the string in the same order, producing HELLO. To reverse a string, characters must be read from the last index to the first index.",
@@ -931,8 +1052,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Replace j++ with i++.",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "i++"
+  ]
+},
 
     explanation:
       "The loop variable is i, but the increment section uses j, which is not declared. This causes a compilation error. The loop should increment i during each iteration.",
@@ -974,8 +1099,14 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Initialize max with arr[0] and use arr[i] > max.",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "arr[0]",
+    ">",
+    "max"
+  ]
+},
 
     explanation:
       "The current logic updates max when a smaller value is found, which actually searches for a minimum value. To find the maximum, max should be updated when a larger element is encountered.",
@@ -1018,8 +1149,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Replace str == rev with str.equals(rev).",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "str.equals(rev)"
+  ]
+},
 
     explanation:
       "The reversed string is correct, but == compares references rather than text. The equals() method compares actual string contents and correctly identifies palindromes.",
@@ -1056,8 +1191,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "double avg = (a + b + c) / 3.0;",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "double avg = (a + b + c) / 3.0;",
+    "double avg=(a+b+c)/3.0;"
+  ]
+},
 
     explanation:
       "The average of three numbers is obtained by dividing their sum by 3, not by 2. Using 3.0 also ensures floating-point division when needed.",
@@ -1094,8 +1234,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Return an integer value using return a + b;",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "return a + b;",
+    "return a+b;"
+  ]
+},
 
     explanation:
       "A method declared with return type int must return an integer value. Printing a value is not the same as returning it. Without a return statement, the compiler reports an error.",
@@ -1138,9 +1283,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Change the loop condition to i < n.",
-
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "i < n",
+    "i<n"
+  ]
+},
     explanation:
       "Every number is divisible by itself. When i becomes equal to n, the condition n % i == 0 becomes true and the program incorrectly marks the number as non-prime. The divisor check should only run from 2 up to n-1 (or more efficiently up to √n).",
 
@@ -1176,8 +1325,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "5",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "5"
+  ]
+},
 
     explanation:
       "The post-increment operator returns the current value before incrementing. First x++ evaluates to 5 and schedules x to become 6. However, the assignment x = x++ stores the old value (5) back into x, overwriting the incremented value. Therefore x remains 5.",
@@ -1212,8 +1365,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "12",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "12"
+  ]
+},
 
     explanation:
       "Initially x is 5. The expression x++ returns 5 and then increments x to 6. Next ++x increments x to 7 and returns 7. Therefore the expression becomes 5 + 7 = 12.",
@@ -1249,8 +1406,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "true",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "true"
+  ]
+},
 
     explanation:
       "String literals are stored in the String Pool. Since both s1 and s2 contain the same literal, Java reuses the same object reference. Therefore both variables point to the same memory location and == returns true.",
@@ -1287,9 +1448,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "false true",
-
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "false true"
+  ]
+},
     explanation:
       "The == operator compares references. s1 points to a pooled string while s2 points to a newly created object, so == returns false. The equals() method compares the actual text content inside the strings, so it returns true.",
 
@@ -1324,8 +1488,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "true",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "true"
+  ]
+},
 
     explanation:
       "Java caches Integer objects in the range -128 to 127. Since both variables contain 100, they reference the same cached Integer object. Therefore == returns true because both references point to the same object.",
@@ -1361,8 +1529,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "false",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "false"
+  ]
+},
 
     explanation:
       "Java caches Integer objects only in the range -128 to 127. Since 200 is outside this range, two separate Integer objects are created. The == operator compares references, not values, so the result is false.",
@@ -1401,8 +1573,13 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "Try\nFinally",
+    validation: {
+  type: "tokens",
+  requiredTokens: [
+    "Try",
+    "Finally"
+  ]
+},
 
     explanation:
       "The finally block executes even if a return statement is encountered in the try block. Java executes the finally block before the method actually returns.",
@@ -1444,8 +1621,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "20",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "20"
+  ]
+},
 
     explanation:
       "Although the try block returns 10, the finally block also contains a return statement. A return inside finally overrides any earlier return value, so the method ultimately returns 20.",
@@ -1483,8 +1664,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "100",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "100"
+  ]
+},
 
     explanation:
       "Arrays are reference types. The assignment b = a does not create a new array. Instead, both variables point to the same array object in memory. Therefore changing b[0] also changes a[0].",
@@ -1525,8 +1710,12 @@ topic: "General",
     }
 }`,
 
-    correctAnswer:
-      "int",
+    validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "int"
+  ]
+},
 
     explanation:
       "The literal 5 is of type int. During method overloading resolution, Java chooses the most specific matching method. Since show(int) is an exact match, it is selected instead of show(double).",
@@ -1554,7 +1743,12 @@ topic: "General",
     }
 }`,
 
-  correctAnswer: "95",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "95"
+  ]
+},
 
   explanation:
     "The variable marks stores 95 and is printed.",
@@ -1582,7 +1776,12 @@ topic: "General",
     }
 }`,
 
-  correctAnswer: "20",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "20"
+  ]
+},
 
   explanation:
     "Array indexing starts from 0. arr[1] refers to the second element.",
@@ -1614,7 +1813,12 @@ public class Main {
     }
 }`,
 
-  correctAnswer: "Rahul",
+  validation: {
+  type: "includes",
+  acceptedAnswers: [
+    "Rahul"
+  ]
+},
 
   explanation:
     "An object of Student is created and its name field is printed.",
